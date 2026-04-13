@@ -1,0 +1,66 @@
+
+body { 
+    font-family: 'Montserrat', sans-serif; 
+    background-color: #ffffff; 
+    color: #000;
+}
+
+ .navbar-brand { 
+    font-family: 'Playfair Display', serif;
+     font-size: 1.8rem; 
+     letter-spacing: 2px; 
+     font-style: italic; 
+    }
+
+.placeholder-img {
+            background-color: #f2f2f2;
+            width: 100%;
+            aspect-ratio: 1 / 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            margin-bottom: 15px;
+        }
+
+.hero-banner {
+            background-color: #f8f8f8;
+            padding: 100px 0;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+/* Botón Negro */
+.btn-shop {
+            background: #000;
+            color: #fff;
+            border-radius: 0;
+            padding: 10px 30px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            border: none;
+        }
+
+.carousel-item {
+    font-family:'Montserrat', sans-serif bold; 
+     color: #000;
+    background-color: #facee6; /* O el color exacto de tus fotos */
+}
+
+.product-image-container {
+    background-color: #fdfaf7;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
