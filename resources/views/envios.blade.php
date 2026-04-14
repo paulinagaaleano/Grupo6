@@ -59,7 +59,11 @@ rel="stylesheet">
         </div>
     </div>
 </section>
+<<<<<<< HEAD
  <section class="py-5 bg-white">
+=======
+    <section class="py-5 bg-white">
+>>>>>>> 95009e2df1a1c336b99183820a1a9f135934b841
     <div class="container">
         <div class="row text-center">
             <div class="col-md-4">
@@ -88,6 +92,7 @@ rel="stylesheet">
                 <h5 class="fw-bold">AURA BEAUTY</h5>
                 <p class="text-muted small">Realzando tu belleza natural con Rare Beauty.</p>
             </div>
+<<<<<<< HEAD
 
             <div class="col-md-4 mb-4">
                 <h6 class="fw-bold text-uppercase small">Navegación</h6>
@@ -117,6 +122,5 @@ rel="stylesheet">
         </div>
     </div>
 </footer>
-
 </body>
 </html>

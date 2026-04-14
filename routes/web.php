@@ -17,6 +17,7 @@ Route::get('/envios', function () {
     return view('envios'); 
 });
 
+<<<<<<< HEAD
 Route::get('/contacto', function () {
     return view('contacto'); 
 });
@@ -25,10 +26,3 @@ Route::get('/login', function () {
     return view('login');
 });
 
-use App\Http\Controllers\CatalogoController;
-
-// Ruta para el botón "Ver Colección"
-Route::get('/catalogo', [CatalogoController::class, 'index'])->name('catalogo.index');
-
-// Ruta para las categorías (Labiales, Bases, etc.)
-Route::get('/catalogo/{categoria}', [CatalogoController::class, 'show'])->name('catalogo.show');
