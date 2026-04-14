@@ -17,6 +17,7 @@ Route::get('/envios', function () {
     return view('envios'); 
 });
 
+
 use App\Http\Controllers\CatalogoController;
 
 // Ruta para el botón "Ver Colección"
