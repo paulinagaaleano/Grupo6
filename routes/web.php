@@ -42,3 +42,8 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+// ruta para terminos
+Route::get('/terminos', function () {
+    return view('terminos');
+});
+

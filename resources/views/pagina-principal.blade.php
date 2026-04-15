@@ -14,16 +14,21 @@
 </head>
 <body>
 
-<div id="miniCarruselAnuncios" class="carousel slide bg-dark text-white" data-bs-ride="carousel">
+<div id="miniCarruselAnuncios" class="carousel slide bg-aura-banner" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="3000">
-            <p class="text-center py-2 mb-0" style="font-size: 0.8rem; letter-spacing: 1px;">
+        <div class="carousel-item active" data-bs-interval="4000">
+            <p class="text-center py-2 mb-0 top-bar-text">
                 ✨ ENVÍOS GRATIS A PARTIR DE $50.000 ✨
             </p>
         </div>
-        <div class="carousel-item" data-bs-interval="3000">
-            <p class="text-center py-2 mb-0" style="font-size: 0.8rem; letter-spacing: 1px;">
-                💄 3 CUOTAS SIN INTERÉS EN TODA LA TIENDA 💄
+        <div class="carousel-item" data-bs-interval="4000">
+            <p class="text-center py-2 mb-0 top-bar-text">
+                💳 3 CUOTAS SIN INTERÉS EN TODA LA TIENDA 💳
+            </p>
+        </div>
+        <div class="carousel-item" data-bs-interval="4000">
+            <p class="text-center py-2 mb-0 top-bar-text">
+                🌿 PRODUCTOS 100% CRUELTY FREE & VEGAN 🌿
             </p>
         </div>
     </div>
@@ -102,53 +107,46 @@
         </a>
         </div>
     </header>
-
-<div class="container mt-5">
-
-    <div class="row g-4"> <div class="col-6 col-md-3 text-center">
-
-    <div class="product-image-container">
-
-        <img src="/img/rubor.jpg" alt="Rubor Liquido">
-
-    </div>
-
-    <h3>Rubor Liquido</h3>
-
-    <p>$20.000</p>
-
-       </div><div class="col-6 col-md-3 text-center">
-
-         <div class="product-image-container">
-
-           <img src="/img/labialm.webp" alt="labial matte">
-
-    </div>
-
-    <h3>Labial Matte</h3>
-
-    <p>$18.000</p>
-
-</div> <div class="col-6 col-md-3 text-center">
-
-         <div class="product-image-container">
-
-           <img src="/img/polvo.webp" alt="polvo">
-
-    </div>
-
-    <h3>Polvo Translucido</h3>
-
-    <p>$25.000</p>
-
-</div>
-
-
-
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 style="font-family: 'Playfair Display', serif; font-weight: 700;">Sentite tu mejor versión</h2>
+            <p class="text-muted" style="font-family: 'Montserrat', sans-serif; letter-spacing: 1px;">Descubrí cómo usar nuestros favoritos de Rare Beauty</p>
         </div>
 
-</div>
+        <div class="row g-4 align-items-center">
+            <div class="col-md-4">
+                <div class="position-relative overflow-hidden rounded shadow-sm hover-zoom">
+                    <img src="/img/principal.jpg" class="img-fluid" alt="Maquillaje Natural">
+                    <div class="p-3">
+                        <h6 class="mt-3 fw-bold">Efecto Natural</h6>
+                        <p class="small text-muted">Lográ un brillo saludable con nuestro Rubor Líquido.</p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-md-4">
+                <div class="position-relative overflow-hidden rounded shadow-sm hover-zoom">
+                    <img src="/img/labialm.webp" class="img-fluid" alt="Aplicando Labial">
+                    <div class="p-3 text-center">
+                        <h6 class="mt-3 fw-bold">Labios Perfectos</h6>
+                        <p class="small text-muted">El Tinted Lip Oil combina lo mejor de un tinte labial, un brillo y un tratamiento hidratante en un solo producto..</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="position-relative overflow-hidden rounded shadow-sm hover-zoom">
+                    <img src="/img/basep.webp" class="img-fluid" alt="Piel Radiante">
+                    <div class="p-3 text-end">
+                        <h6 class="mt-3 fw-bold">Piel de Seda</h6>
+                        <p class="small text-muted">Una base de larga duración y un acabado mate natural que realza la belleza de tu piel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <footer class="bg-white py-5 border-top mt-5">
 
     <div class="container">
