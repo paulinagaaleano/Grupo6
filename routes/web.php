@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 // Importamos tu controlador
 use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\CarritoController;
 
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
+Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
+Route::get('/carrito/limpiar', [CarritoController::class, 'limpiar'])->name('carrito.limpiar');
 /*
 |--------------------------------------------------------------------------
 | Web Routes - Aura Beauty Project
@@ -46,4 +50,5 @@ Route::get('/login', function () {
 Route::get('/terminos', function () {
     return view('terminos');
 });
+
 

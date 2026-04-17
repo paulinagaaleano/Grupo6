@@ -12,65 +12,75 @@ class CatalogoController extends Controller
         (object)[
             'nombre' => 'Labiales',
             'slug' => 'labiales',
-            'imagen' => 'portadaLabiales.jpg' // Asegurate que la extensión sea .png o .jpg según tu archivo
+            'imagen' => 'Portada/portadaLabiales.jpg' // Asegurate que la extensión sea .png o .jpg según tu archivo
         ],
         (object)[
             'nombre' => 'Bases',
             'slug' => 'bases',
-            'imagen' => 'portadaBase2.jpg'
+            'imagen' => 'Portada/portadaBase2.jpg'
         ],
         (object)[
             'nombre' => 'Correctores',
             'slug' => 'correctores',
-            'imagen' => 'portadaCorrector.jpg'
+            'imagen' => 'Portada/portadaCorrector.jpg'
         ],
         (object)[
             'nombre' => 'Contorno',
             'slug' => 'contorno',
-            'imagen' => 'portadaContorno.jpg'
+            'imagen' => 'Portada/portadaContorno.jpg'
         ],
         (object)[
             'nombre' => 'Iluminadores',
             'slug' => 'iluminadores',
-            'imagen' => 'portadaIluminador2.jpg'
+            'imagen' => 'Portada/portadaIluminador2.jpg'
         ],
         (object)[
             'nombre' => 'Rubores',
             'slug' => 'rubores',
-            'imagen' => 'portadaRubor.jpg'
+            'imagen' => 'Portada/portadaRubor.jpg'
         ],
         (object)[
             'nombre' => 'Rimmel',
             'slug' => 'rimmels',
-            'imagen' => 'public/img/Portada/portadaRimmel.jpg'
+            'imagen' => 'Portada/portadaRimmel.jpg'
         ],
         (object)[
             'nombre' => 'Polvos',
             'slug' => 'polvos',
-            'imagen' => 'portadaPolvos.jpg'
+            'imagen' => 'Portada/portadaPolvo.webp'
         ]
     ];
         return view('catalogo.index', compact('categorias'));
     }
 
+
     public function show($categoria) {
-    // 1. Definimos el "gran catálogo" de Aura Beauty
     $todoElCatalogo = [
         'labiales' => [
-            ['nombre' => 'Lip Matte Cream', 'precio' => '28.500', 'img' => 'lab1.webp'],
-            ['nombre' => 'Lip Balm Sel', 'precio' => '25.000', 'img' => 'lab2.webp'],
-            ['nombre' => 'Kind Matte Lipstick', 'precio' => '30.000', 'img' => 'lab3.webp'],
-            ['nombre' => 'Glossy Lip Oil', 'precio' => '27.000', 'img' => 'lab4.webp'],
+            ['nombre' => 'Lip Matte Cream', 'precio' => '28.500', 'img' => 'Catalogo/lab1.webp'],
+            ['nombre' => 'Lip Balm Sel', 'precio' => '25.000', 'img' => 'Catalogo/lab2.webp'],
+            ['nombre' => 'Kind Matte Lipstick', 'precio' => '30.000', 'img' => 'Catalogo/lab3.webp'],
+            ['nombre' => 'Glossy Lip Oil', 'precio' => '27.000', 'img' => 'Catalogo/lab4.webp'],
         ],
         'bases' => [
-            ['nombre' => 'Liquid Touch Weightless Foundation', 'precio' => '45.000', 'img' => 'bas1.webp'],
-            ['nombre' => 'Positive Light Tinted Moisturizer', 'precio' => '42.000', 'img' => 'bas2.webp'],
+            ['nombre' => 'Liquid Touch Weightless Foundation', 'precio' => '45.000', 'img' => 'Catalogo/bas1.webp'],
+            ['nombre' => 'Positive Light Tinted Moisturizer', 'precio' => '42.000', 'img' => 'Catalogo/bas2.webp'],
+            ['nombre' => 'True to Myself Natural Matte Longwear Foundation', 'precio' => '37.000', 'img' => 'Catalogo/bas3.webp'],
+        ],
+       'rubores' => [
+            ['nombre' => 'Soft Pinch Liquid Blush', 'precio' => '32.000', 'img' => 'Catalogo/rub1.webp'],
+            ['nombre' => 'Stay Vulnerable Melting Blush', 'precio' => '29.500', 'img' => 'Catalogo/rub2.webp'],
+       ],
+        'rimmels' => [
+            ['nombre' => 'Perfect Strokes Universal Volumizing Mascara', 'precio' => '25.000', 'img' => 'Catalogo/rim1.webp'],
+        ],
+        'polvos' => [
+            ['nombre' => 'True To Myself Tinted Pressed Finishing Powder', 'precio' => '25.200', 'img' => 'Catalogo/polvo.webp'],
         ],
         'rubores' => [
-            ['nombre' => 'Soft Pinch Liquid Blush', 'precio' => '32.000', 'img' => 'rub1.webp'],
-            ['nombre' => 'Stay Vulnerable Melting Blush', 'precio' => '29.500', 'img' => 'rub2.webp'],
+            ['nombre' => 'Soft Pinch Liquid Blush', 'precio' => '15.000', 'img' => 'Catalogo/rub1.webp'],
+            ['nombre' => 'Soft Pooch Blush Dog Toy - Faith', 'precio' => '42.000', 'img' => '<Catalogo/rub2.webp'],
         ],
-        
     ];
 
     // 2. Buscamos los productos de la categoría que pidió el usuario
