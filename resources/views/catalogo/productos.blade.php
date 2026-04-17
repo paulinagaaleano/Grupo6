@@ -62,6 +62,13 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ $categoria }}</li>
                 </ol>
             </nav>
+            
+            @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
             <div class="d-flex justify-content-between align-items-end mb-4">
                 <div>
@@ -85,7 +92,16 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="small fw-bold mb-1">{{ $prod['nombre'] }}</h5>
                                 <p class="text-pink fw-bold mb-3">${{ $prod['precio'] }}</p>
-                                <button class="btn btn-dark btn-sm w-100 rounded-0 mt-auto">COMPRAR</button>
+    <form action="{{ route('carrito.agregar') }}" method="POST">
+    @csrf
+    <input type="hidden" name="nombre" value="{{ $prod['nombre'] }}">
+    <input type="hidden" name="precio" value="{{ $prod['precio'] }}">
+    <input type="hidden" name="img" value="{{ $prod['img'] }}">
+
+    <button type="submit" class="btn btn-dark w-100">
+        COMPRAR
+    </button>
+</form>
                             </div>
                         </div>
                     </div>
