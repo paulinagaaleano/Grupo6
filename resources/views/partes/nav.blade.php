@@ -20,7 +20,7 @@
                     <a class="nav-link dropdown-toggle px-3 text-uppercase" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" style="font-size: 0.75rem; letter-spacing: 1px;">
                         Catálogo
                     </a>
-<<<<<<< HEAD
+
                     <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDropdown">
     <li><a class="dropdown-item" href="{{ route('catalogo.show', 'labiales') }}">Labiales</a></li>
     <li><a class="dropdown-item" href="{{ route('catalogo.show', 'bases') }}">Bases Líquidas</a></li>
@@ -41,22 +41,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3" href="{{ url('/contacto') }}">Contacto</a>
-=======
-                    <ul class="dropdown-menu border-0 shadow-sm" style="font-size: 0.8rem;">
-                        <li><a class="dropdown-item" href="{{ route('catalogo.show', 'labiales') }}">Labiales</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.show', 'bases') }}">Bases Líquidas</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.show', 'correctores') }}">Correctores</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.show', 'contornos') }}">Contornos</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.show', 'iluminadores') }}">Iluminadores</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.show', 'rubores') }}">Rubores</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.show', 'rimmels') }}">Rimmels</a></li>
-                    </ul>
->>>>>>> c23727ee5735e95ec80bb0d8b6d9c0ca4eba6631
-                </li>
-                <li class="nav-item"><a class="nav-link px-3 text-uppercase" href="{{ url('/quienes-somos') }}" style="font-size: 0.75rem; letter-spacing: 1px;">Nosotros</a></li>
-                <li class="nav-item"><a class="nav-link px-3 text-uppercase" href="{{ url('/envios') }}" style="font-size: 0.75rem; letter-spacing: 1px;">Envíos</a></li>
-                <li class="nav-item"><a class="nav-link px-3 text-uppercase" href="{{ url('/contacto') }}" style="font-size: 0.75rem; letter-spacing: 1px;">Contacto</a></li>
-            </ul>
+
 
             <div class="d-flex align-items-center ms-lg-4 mt-3 mt-lg-0">
                 <a class="nav-link px-2 text-dark" href="{{ url('/login') }}" title="Mi Cuenta">
