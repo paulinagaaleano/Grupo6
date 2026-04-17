@@ -12,7 +12,7 @@
     @foreach($categorias as $categoria)
         <div class="row mb-5 align-items-center border-bottom pb-5">
             <div class="col-md-5">
-                <img src="{{ asset('img/' . $categoria->imagen) }}" 
+                <img src="{{ asset('img/Portada/' . $categoria->imagen) }}" 
                      class="img-fluid shadow-sm" 
                      alt="{{ $categoria->nombre }}"
                      style="width: 100%; height: 400px; object-fit: cover;">

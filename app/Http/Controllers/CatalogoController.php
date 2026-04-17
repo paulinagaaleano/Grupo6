@@ -42,15 +42,15 @@ class CatalogoController extends Controller
         (object)[
             'nombre' => 'Rimmel',
             'slug' => 'rimmels',
-            'imagen' => 'public/img/Portada/portadaRimmel.jpg'
+            'imagen' => 'portadaRimmel.webp'
         ],
         (object)[
             'nombre' => 'Polvos',
             'slug' => 'polvos',
-            'imagen' => 'portadaPolvos.jpg'
+            'imagen' => 'polvo.webp'
         ]
     ];
-        return view('catalogo.index', compact('categorias'));
+        return view('catalogo.categorias', compact('categorias'));
     }
 
     public function show($categoria) {

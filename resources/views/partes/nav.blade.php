@@ -16,6 +16,7 @@
                     <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDropdown">
     <li><a class="dropdown-item" href="{{ route('catalogo.show', 'labiales') }}">Labiales</a></li>
     <li><a class="dropdown-item" href="{{ route('catalogo.show', 'bases') }}">Bases Líquidas</a></li>
+    <li><a class="dropdown-item" href="{{ route('catalogo.show', 'bases') }}">Rubores</a></li>
     <li><a class="dropdown-item" href="{{ route('catalogo.show', 'correctores') }}">Correctores</a></li>
     <li><a class="dropdown-item" href="{{ route('catalogo.show', 'iluminadores') }}">Iluminadores</a></li>
     <li><a class="dropdown-item" href="{{ route('catalogo.show', 'rimmels') }}">Rimmel</a></li>
@@ -28,7 +29,7 @@
                     <a class="nav-link px-3" href="{{ url('/quienes-somos') }}">Quiénes Somos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="{{ url('/envios') }}">Envíos</a>
+                    <a class="nav-link px-3" href="{{ url('/envios') }}">Comercializacion</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3" href="{{ url('/contacto') }}">Contacto</a>

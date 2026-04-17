@@ -15,7 +15,7 @@
                 💳 3 CUOTAS SIN INTERÉS EN TODA LA TIENDA 💳
             </p>
         </div>
-        <div class="carousel-item" data-bs-interval="4000">
+        <div class="carousel-item " data-bs-interval="4000">
             <p class="text-center py-2 mb-0 top-bar-text">
                 🌿 PRODUCTOS 100% CRUELTY FREE & VEGAN 🌿
             </p>
