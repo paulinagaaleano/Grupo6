@@ -1,26 +1,40 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-// Importamos tu controlador
-use App\Http\Controllers\CatalogoController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes - Aura Beauty Project
-|--------------------------------------------------------------------------
-*/
 
 // 1. Ruta de Inicio (Home)
 Route::get('/', function () {
     return view('pagina-principal'); // Tu archivo principal Aura Beauty
 });
 
-// 2. Ruta del Catálogo General (Muestra las colecciones: Labiales, Bases, etc.)
-Route::get('/catalogo', [CatalogoController::class, 'index'])->name('catalogo.index');
 
-// 3. Ruta de Productos por Categoría (Muestra los productos de UNA colección)
-// El {categoria} es el parámetro dinámico (labiales, bases, etc.)
-Route::get('/catalogo/{categoria}', [CatalogoController::class, 'show'])->name('catalogo.show');
+// Una ruta para cada página, bien clarito
+Route::get('/catalogo/labiales', function () {
+    return view('catalogo.labiales'); 
+})->name('catalogo.labiales');
+
+Route::get('/catalogo/bases', function () {
+    return view('catalogo.bases');
+})->name('catalogo.bases');
+
+Route::get('/catalogo/correctores', function () {
+    return view('catalogo.correctores');
+})->name('catalogo.correctores');
+
+Route::get('/catalogo/rubores', function () {
+    return view('catalogo.rubores');
+})->name('catalogo.rubores');
+
+Route::get('/catalogo/rimmels', function () {
+    return view('catalogo.rimmels');
+})->name('catalogo.rimmels');
+
+Route::get('/catalogo/iluminadores', function () {
+    return view('catalogo.iluminadores');
+})->name('catalogo.iluminadores');
+
+Route::get('/catalogo/polvos', function () {
+    return view('catalogo.polvos');
+})->name('catalogo.polvos');
 
 // 4. Ruta de Quiénes Somos
 Route::get('/quienes-somos', function () {
@@ -46,4 +60,5 @@ Route::get('/login', function () {
 Route::get('/terminos', function () {
     return view('terminos');
 });
+
 

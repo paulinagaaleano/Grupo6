@@ -15,7 +15,7 @@
                 💳 3 CUOTAS SIN INTERÉS EN TODA LA TIENDA 💳
             </p>
         </div>
-        <div class="carousel-item" data-bs-interval="4000">
+        <div class="carousel-item " data-bs-interval="4000">
             <p class="text-center py-2 mb-0 top-bar-text">
                 🌿 PRODUCTOS 100% CRUELTY FREE & VEGAN 🌿
             </p>
@@ -31,11 +31,10 @@
             <img src="/img/Carrusel/car2.png" class="d-block w-100" alt="Promoción 1" style="height: 500px; object-fit: cover;">
         </div>
         <div class="carousel-item" data-bs-interval="2000">
-            <img src="/img/car1.png" class="d-block w-100" alt="Promoción 2" style="height: 500px; object-fit: cover;">
+            <img src="/img/Carrusel/car1.png" class="d-block w-100" alt="Promoción 2" style="height: 500px; object-fit: cover;">
         </div>
         <div class="carousel-item" data-bs-interval="2000">
-            <img src="/img/car3.png" class="d-block w-100" alt="Promoción 2" style="height: 500px; object-fit: cover;">
-        </div>
+            <img src="/img/Carrusel/car3.png" class="d-block w-100" alt="Promoción 3" style="height: 500px; object-fit: cover;">
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselAura" data-bs-slide="prev">
         <span class="carousel-control-prev-icon"></span>
@@ -49,9 +48,7 @@
         <div class="container">
             <h1 style="font-family: 'Playfair Display'; font-size: 3rem;"> Productos exclusivos "Rare Beauty"</h1>
             <p>Tu tienda de maquillajes.</p>
-            <a href="{{ route('catalogo.index') }}" class="btn btn-shop">
-            Ver Colecciones
-        </a>
+           
         </div>
     </header>
 <section class="py-5 bg-white">

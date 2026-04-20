@@ -1,34 +1,44 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="{{ asset('css/estilo.css') }}">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3 sticky-top border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-2 sticky-top border-bottom">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="/">AURA BEAUTY</a>
+    
+        <a class="navbar-brand fw-bold" href="/" style="letter-spacing: 3px; font-size: 2.1rem; font-style: italic; font-family: 'Playfair Display', serif !important;">
+            AURA BEAUTY
+        </a>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon" style="font-size: 0.8rem;"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle px-3 text-uppercase" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" style="font-size: 0.75rem; letter-spacing: 1px;">
                         Catálogo
                     </a>
-                    <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDropdown">
-    <li><a class="dropdown-item" href="{{ route('catalogo.show', 'labiales') }}">Labiales</a></li>
-    <li><a class="dropdown-item" href="{{ route('catalogo.show', 'bases') }}">Bases Líquidas</a></li>
-    <li><a class="dropdown-item" href="{{ route('catalogo.show', 'correctores') }}">Correctores</a></li>
-    <li><a class="dropdown-item" href="{{ route('catalogo.show', 'iluminadores') }}">Iluminadores</a></li>
-    <li><a class="dropdown-item" href="{{ route('catalogo.show', 'rimmels') }}">Rimmel</a></li>
-    <li><a class="dropdown-item" href="{{ route('catalogo.show', 'polvos') }}">Polvos Campactos</a></li>
 
-</ul>
+                    <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('catalogo.labiales') }}">Labiales</a></li>
+                        <li><a class="dropdown-item" href="{{ route('catalogo.bases') }}">Bases Líquidas</a></li>
+                        <li><a class="dropdown-item" href="{{ route('catalogo.rubores') }}">Rubores</a></li>
+                        <li><a class="dropdown-item" href="{{ route('catalogo.correctores') }}">Correctores</a></li>
+                        <li><a class="dropdown-item" href="{{ route('catalogo.iluminadores') }}">Iluminadores</a></li>
+                        <li><a class="dropdown-item" href="{{ route('catalogo.rimmels') }}">Rimmel</a></li>
+                        <li><a class="dropdown-item" href="{{ route('catalogo.polvos') }}">Polvos Compactos</a></li>
+                    </ul>
                 </li>
                 
                 <li class="nav-item">
                     <a class="nav-link px-3" href="{{ url('/quienes-somos') }}">Quiénes Somos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="{{ url('/envios') }}">Envíos</a>
+                    <a class="nav-link px-3" href="{{ url('/envios') }}">Comercialización</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3" href="{{ url('/contacto') }}">Contacto</a>
@@ -36,12 +46,5 @@
             </ul>
         </div>
     </div>
-
-    <a class="nav-link px-3 d-flex align-items-center" href="{{ url('/login') }}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person-circle me-1" viewBox="0 0 16 16">
-          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-        </svg>
-        Mi Cuenta
-    </a>
+      </div>
 </nav>
