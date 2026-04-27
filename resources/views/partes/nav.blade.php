@@ -24,9 +24,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 sticky-top border-bottom">
     <div class="container">
     
-        <a class="navbar-brand fw-bold" href="/" style="letter-spacing: 3px; font-size: 2.1rem; font-style: italic; font-family: 'Times New Roman', serif !important;">
-            AURA BEAUTY
-        </a>
+        <a class="navbar-brand fw-bold aura-title" href="/">
+    AURA BEAUTY
+    </a>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

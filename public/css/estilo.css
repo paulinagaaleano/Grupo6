@@ -12,9 +12,17 @@ body {
      font-style: italic; 
     }
 
+.aura-title {
+    color: #db97a4;
+    letter-spacing: 3px;
+    font-size: 2.1rem;
+    font-style: italic;
+    font-family: 'Times New Roman', serif !important;
+}
+
 
 .hero-banner {
-            background-color: #FAF3F0;
+            background-color: #f7c8d1;
             padding: 60px 0;
             text-align: center;
         }
@@ -28,7 +36,7 @@ body {
 }
 
 #miniCarruselAnuncios {
-    background-color: #ffddec; 
+    background-color: #181114; 
     border-bottom: 1px solid #eee;
 }
 
@@ -36,7 +44,7 @@ body {
     font-family: 'Questrial', sans-serif;
     font-size: 0.75rem; 
     font-weight: 500;  
-    color: #333;      
+    color: #ebe1e1;      
     letter-spacing: 2.5px;
     text-transform: uppercase;
     padding: 10px 0; 
@@ -99,20 +107,4 @@ section p {
     .img-fluid-carrusel {
         height: 200px;
     }
-}
-
-footer {
-    background-color: #FAF3F0; /* Color de fondo (puedes usar el del hero-banner) */
-    color: #333;               /* Color del texto principal */
-    padding: 40px 0;           /* Espaciado para que no quede pegado */
-    border-top: 1px solid #eee; /* Una línea sutil para separar del contenido */
-}
-
-footer a {
-    color: #000;               /* Color de los enlaces */
-    text-decoration: none;      /* Quita el subrayado */
-}
-
-footer a:hover {
-    color: #ebd7c4;            /* Color cuando pasas el mouse por un link */
 }
