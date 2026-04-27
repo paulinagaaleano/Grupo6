@@ -9,7 +9,6 @@
     <div class="text-center mb-5">
         <h1 style="font-family: 'Playfair Display', serif; font-weight: 700;" class="text-uppercase">Comercialización</h1>
         <p class="text-muted">Todo lo que necesitas saber para recibir tus productos favoritos</p>
-        <hr class="mx-auto" style="width: 50px; border: 2px solid #f8c3d5;">
     </div>
 
     <div class="row g-5">

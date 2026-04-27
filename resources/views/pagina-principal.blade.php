@@ -38,11 +38,11 @@
     </div>
 </header>
 
-<section class="py-5 bg-white">
+<div class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
+        <div class="d-flex flex-column align-items-center text-center mb-5">
             <h2 style="font-family: 'Playfair Display', serif; font-weight: 700;">Sentite tu mejor versión</h2>
-            <p class="text-muted" style="font-family: 'Montserrat', sans-serif; letter-spacing: 1px;">Descubrí cómo usar nuestros favoritos de Rare Beauty</p>
+            <p class="small text-muted mb-0">Descubrí cómo usar nuestros favoritos de Rare Beauty</p>
          </div>
 
          <div class="row g-4 align-items-stretch"> 
@@ -84,9 +84,11 @@
         </div>
 
     </div>
-     </section>
-
+</div>
+ </footer>
      @include('partes.footer')
+</footer>
+
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
      </body>
 </html>
