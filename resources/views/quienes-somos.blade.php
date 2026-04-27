@@ -26,7 +26,6 @@
             <div class="p-3">
                 <img src="/img/Creadoras/be.jpeg" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;" alt="hola">
                 <h5 class="fw-bold">Esquenazi Brenda</h5>
-                <p class="text-muted">Fundadora</p>
             </div>
         </div>
         
@@ -34,7 +33,6 @@
             <div class="p-3">
                 <img src="/img/staff2.jpg" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;" alt="hola">
                 <h5 class="fw-bold">Galeano Paulina</h5>
-                <p class="text-muted">Fundadora</p>
 </div>
     </div>
 </section>

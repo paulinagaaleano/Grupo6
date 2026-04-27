@@ -7,10 +7,10 @@
 
 @include('partes.nav')
 
-<main class="py-5" style="background-color: #fdfdfd;">
+<main class="py-5" style="background-color">
     <div class="container">
         <h1 class="text-center mb-2" style="font-family: 'Playfair Display'; font-weight: 700; letter-spacing: 2px;">DESCUBRI TODOS NUESTROS PRODUCTOS</h1>
-        <p class="text-center text-muted mb-5" style="font-family: 'Montserrat';">Encontrá tu maquillaje ideal</p>
+        <p class="text-center text-muted mb-5" style="font-family">Encontrá tu maquillaje ideal</p>
 
         <div class="row g-4">
 <div class="col-6 col-md-4 col-lg-3">

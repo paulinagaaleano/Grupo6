@@ -1,7 +1,7 @@
 
 body { 
-    font-family: 'Montserrat', sans-serif; 
-    background-color: #fcfcfc; 
+    font-family: 'Caudex', sans-serif; 
+    background-color: #ffffff; 
     color: #000;
 }
 
@@ -12,44 +12,28 @@ body {
      font-style: italic; 
     }
 
-.placeholder-img {
-            background-color: #ffdaf9;
-            width: 100%;
-            aspect-ratio: 1 / 1.2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffe7f5;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            margin-bottom: 15px;
-        }
 
 .hero-banner {
             background-color: #FAF3F0;
-            padding: 100px 0;
+            padding: 60px 0;
             text-align: center;
-            border-bottom: 1px solid #ffffff;
         }
 
-
-.btn-shop {
-            background: #fff1fe;
-            color: #ffe6fe;
-            border-radius: 0;
-            padding: 10px 30px;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            border: none;
-        }
+.hero-banner h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 200;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
 
 #miniCarruselAnuncios {
-    background-color: #fff2e0; 
+    background-color: #ffddec; 
     border-bottom: 1px solid #eee;
 }
 
 .top-bar-text {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
     font-size: 0.75rem; 
     font-weight: 500;  
     color: #333;      
@@ -59,7 +43,7 @@ body {
 }
 
 .product-image-container {
-    background-color: #ebd7c4;
+    background-color: #672626;
     aspect-ratio: 1/1;
     overflow: hidden;
     display: flex;
@@ -91,6 +75,8 @@ h2 {
 
 section p {
     font-size: 0.9rem;
+    text-align: justify; /* Esto alinea el texto a ambos lados */
+    line-height: 1.6;
 }
 
 .img-fluid-carrusel {
@@ -113,4 +99,20 @@ section p {
     .img-fluid-carrusel {
         height: 200px;
     }
+}
+
+footer {
+    background-color: #FAF3F0; /* Color de fondo (puedes usar el del hero-banner) */
+    color: #333;               /* Color del texto principal */
+    padding: 40px 0;           /* Espaciado para que no quede pegado */
+    border-top: 1px solid #eee; /* Una línea sutil para separar del contenido */
+}
+
+footer a {
+    color: #000;               /* Color de los enlaces */
+    text-decoration: none;      /* Quita el subrayado */
+}
+
+footer a:hover {
+    color: #ebd7c4;            /* Color cuando pasas el mouse por un link */
 }
