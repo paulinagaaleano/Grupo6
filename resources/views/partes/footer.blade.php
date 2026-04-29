@@ -25,7 +25,7 @@
 
                     <li><a href="{{ url('/catalogo') }}" class="text-decoration-none text-muted small">Catálogo</a></li>
 
-                    <li><a href="{{ url('/quienes-somos') }}" class="text-decoration-none text-muted small">Quiénes Somos</a></li>
+                    <li><a href="{{ url('/consultas') }}" class="text-decoration-none text-muted small">Consultas</a></li>
 
                 </ul>
 
@@ -38,6 +38,7 @@
                 <h6 class="fw-bold text-uppercase small">Información</h6>
 
                 <ul class="list-unstyled">
+                    <li><a href="{{ url('/quienes-somos') }}" class="text-decoration-none text-muted small">Quiénes Somos</a></li>
 
                     <li><a href="{{ url('/comercializacion') }}" class="text-decoration-none text-muted small">Comercializacion</a></li>
 
