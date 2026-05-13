@@ -60,7 +60,7 @@
 
         <div class="text-center">
 
-            <p class="text-muted mb-0" style="font-size: 0.75rem;">
+            <p class="text-muted mb-0" style="font-size: 1.00rem;">
 
                 &copy; 2026 Aura Beauty. Todos los derechos reservados.
 
