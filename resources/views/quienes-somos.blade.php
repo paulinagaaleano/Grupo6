@@ -26,7 +26,7 @@
             </div>
 
             <div class="col-md-6 text-center">
-                <img src="/img/nosotros/aura-beauty.jpeg"
+                <img src="/img/Logo.png"
                      alt="Aura Beauty"
                      class="img-fluid rounded shadow"
                      style="max-height: 350px; object-fit: cover;">
