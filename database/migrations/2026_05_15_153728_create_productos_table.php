@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('productos', function (Blueprint $table) {
- $table->id();
- $table->string('nombre');
- $table->text('descripcion')->nullable();
- $table->decimal('precio', 8, 2); // hasta 999999.99
- $table->unsignedInteger('stock')->default(0);
- $table->timestamps();
- $table->softDeletes();
+        $table->id();
+        $table->string('nombre');
+        $table->string('descripcion')->nullable(); // nullable() permite que esté vacío
+        $table->integer('precio');
+        $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
+        $table->string('imagen');
+        $table->integer('stock')->default(0);
+        $table->softDeletes();
+        $table->timestamps(); // Esto crea las columnas created_at y updated_at
 });
     }
 

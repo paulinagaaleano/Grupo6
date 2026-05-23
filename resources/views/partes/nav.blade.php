@@ -38,12 +38,12 @@
                     </a>
 
                     <ul class="dropdown-menu border-0 shadow-sm">
-                        <li><a class="dropdown-item" href="{{ route('catalogo.labiales') }}">Labiales</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.bases') }}">Bases Líquidas</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.rubores') }}">Rubores</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.correctores') }}">Correctores</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.iluminadores') }}">Iluminadores</a></li>
-                        <li><a class="dropdown-item" href="{{ route('catalogo.polvos') }}">Polvos Compactos</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/catalogo/labiales') }}">Labiales</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/catalogo/bases') }}">Bases Líquidas</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/catalogo/rubores') }}">Rubores</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/catalogo/correctores') }}">Correctores</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/catalogo/iluminadores') }}">Iluminadores</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/catalogo/polvos') }}">Polvos Compactos</a></li>
                     </ul>
                 </li>
 

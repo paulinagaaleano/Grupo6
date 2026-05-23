@@ -7,7 +7,7 @@
         <div class="carousel-item active" data-bs-interval="3000">
             <img src="/img/Carrusel/8.png" class="d-block w-100 img-fluid-carrusel" alt="Promoción 1">
         </div>
-        <div class="carousel-item" data-bs-interval=34000">
+        <div class="carousel-item" data-bs-interval="3000">
             <img src="/img/Carrusel/9.png" class="d-block w-100 img-fluid-carrusel" alt="Promoción 2">
         </div>
         <div class="carousel-item" data-bs-interval="3000">

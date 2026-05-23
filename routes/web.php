@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductoController;
 
 
 // 1. Ruta de Inicio (Home)
@@ -8,7 +9,7 @@ Route::get('/', function () {
 });
 
 // Una ruta para cada página, bien clarito
-Route::get('/catalogo/labiales', function () {
+/*Route::get('/catalogo/labiales', function () {
     return view('catalogo.labiales'); 
 })->name('catalogo.labiales');
 
@@ -30,8 +31,9 @@ Route::get('/catalogo/iluminadores', function () {
 
 Route::get('/catalogo/polvos', function () {
     return view('catalogo.polvos');
-})->name('catalogo.polvos');
+})->name('catalogo.polvos');*/
 
+Route::get('/catalogo/{categoria}', [ProductoController::class, 'mostrarCategoria']);
 
 // 4. Ruta de Quiénes Somos
 Route::get('/quienes-somos', function () {
@@ -62,13 +64,17 @@ Route::get('/terminos', function () {
     return view('terminos');
 });
 
-Route::get('/coleccion', function () {
+/*Route::get('/coleccion', function () {
     return view('coleccion');
-});
+});*/
 
-Route::get('/catalogo', function () {
+Route::get('/coleccion', [ProductoController::class, 'mostrarColecciones']);
+
+Route::get('/catalogo', [ProductoController::class, 'mostrarColecciones']);
+
+/*Route::get('/catalogo', function () {
     return view('coleccion');
-});
+});*/
 
 Route::get('/construccion', function () {
     return view('construccion'); 
