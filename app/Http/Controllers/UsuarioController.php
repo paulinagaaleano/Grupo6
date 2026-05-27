@@ -2,76 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
-use App\Models\Rol;
+use App\Models\User; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra el listado de usuarios.
      */
     public function index()
     {
-        // with('rol') carga la relación y evita el problema de consultas N+1
-       $usuarios = Usuario::with('rol')->get();
-       return view('usuarios.index', compact('usuarios'));
+        // Trae todos los usuarios de la tabla 'users'
+        $usuarios = User::all();
+        
+        // Retorna la vista siguiendo la estructura de carpetas exigida en el PDF
+        return view('backend.usuarios.index', compact('usuarios'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo usuario.
      */
     public function create()
     {
-        $roles = Rol::all(); // necesario para el <select> del formulario
-        return view('usuarios.create', compact('roles'));
+        // Retorna la vista de creación dentro de la carpeta obligatoria
+        return view('backend.usuarios.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena el usuario recién creado en la base de datos.
      */
     public function store(Request $request)
     {
+        // 🌟 CORREGIDO: Cambiado 'nombre' por 'name' para que coincida con el objeto y el PDF
         $request->validate([
-           'nombre' => 'required|string|max:100',
-           'email' => 'required|email|unique:usuarios',
-           'password' => 'required|min:8|confirmed', // busca campo password_confirmation
-           'rol_id' => 'required|exists:roles,id',
-       ]);
-       Usuario::create($request->only(['nombre', 'email', 'password', 'rol_id']));
-       return redirect()->route('usuarios.index')->with('exito', 'Usuario registrado.');
+           'name' => 'required|string|max:255',
+           'email' => 'required|email|unique:users,email',
+           'password' => 'required|min:6|confirmed', // Mínimo 6 caracteres según tu PDF
+           'rol' => 'required|string', // Atributo 'rol' de tipo texto exigido por la cátedra
+        ]);
+
+        // Guardamos el registro en la base de datos de forma limpia
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password), // Encriptación segura de contraseña
+            'rol' => $request->rol, // Guarda 'admin' o 'cliente' tal como indica tu guía 
+        ]);
+
+        return redirect()->route('usuarios.index')->with('exito', 'Usuario registrado correctamente.');
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un usuario específico (No implementado en este caso).
      */
-    public function show(Usuario $usuario)
+    public function show(User $usuario)
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el recurso.
      */
-    public function edit(Usuario $usuario)
+    public function edit(User $usuario)
     {
-        //
+        return view('backend.usuarios.edit', compact('usuario'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el usuario especificado en la base de datos.
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, User $usuario)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $usuario->id,
+            'rol' => 'required|string',
+         ]);
+
+         $usuario->update($request->only(['name', 'email', 'rol']));
+
+         return redirect()->route('usuarios.index')->with('exito', 'Usuario actualizado.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el usuario del almacenamiento.
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(User $usuario)
     {
-        $usuario->delete(); // borrado lógico
-        return redirect()->route('usuarios.index')->with('exito', 'Usuario dado de baja');  
+        $usuario->delete();
+        return redirect()->route('usuarios.index')->with('exito', 'Usuario eliminado con éxito.');  
     }
 }

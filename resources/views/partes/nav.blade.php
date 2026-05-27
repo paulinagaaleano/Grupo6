@@ -60,6 +60,65 @@
                     <a class="nav-link px-3" href="{{ url('/consultas') }}">Consultas</a>
                 </li>
 
+               @guest
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('registro.guardar') }}">Registrarse</a>
+    </li>
+@endguest
+
+@auth
+
+    @if(auth()->user()->rol === 'admin')
+        <li class="nav-item">
+            <a class="nav-link px-3" href="{{ route('admin.dashboard') }}">
+                Panel Admin
+            </a>
+        </li>
+    @else
+        <li class="nav-item">
+            <a class="nav-link px-3" href="{{ route('cliente.dashboard') }}">
+                Mi Cuenta
+            </a>
+        </li>
+    @endif
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-semibold px-3"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown">
+
+            👤 {{ auth()->user()->name }}
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+
+            <li>
+                <span class="dropdown-item-text text-muted small">
+                    Sesión iniciada
+                </span>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+
+                    <button type="submit" class="dropdown-item text-danger">
+                        Cerrar sesión
+                    </button>
+                </form>
+            </li>
+
+        </ul>
+    </li>
+
+@endauth
             </ul>
         </div>
 

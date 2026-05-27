@@ -115,3 +115,41 @@ section p {
         height: 200px;
     }
 }
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS DEL PANEL DE ADMINISTRACIÓN
+   ========================================================================== */
+
+/* Tus tarjetas indicadoras con fondo gris #eae2e2 */
+.indicator-card-bg {
+    background-color: #eae2e2;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.indicator-card-bg:hover {
+    transform: translateY(-3px);
+}
+
+/* Encabezados oscuros con tu color de anuncios #181114 */
+.dark-header {
+    background-color: #181114;
+    color: #ebe1e1;
+    font-family: 'Caudex', sans-serif;
+    letter-spacing: 1.5px;
+}
+
+/* Botón oscuro que combina con la barra de anuncios */
+.btn-aura-dark {
+    background-color: #181114;
+    color: #ebe1e1;
+    border: none;
+    font-family: 'Caudex', sans-serif;
+    letter-spacing: 1px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-aura-dark:hover {
+    background-color: #333;
+    color: #ffffff;
+}
