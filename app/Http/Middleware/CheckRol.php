@@ -13,7 +13,7 @@ class CheckRol
             return redirect()->route('login');
         }
 
-        if (Auth::user()->rol !== $rol) {
+        if (Auth::usuario()->rol_id !== $rol_id) {
             return redirect('/');
         }
 

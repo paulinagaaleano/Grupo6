@@ -22,13 +22,13 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nombre y apellido</label>
+                    <label for="nombre" class="form-label">Nombre y apellido</label>
                     <input 
                         type="text" 
-                        name="name" 
-                        id="name" 
+                        name="nombre" 
+                        id="nombre" 
                         class="form-control" 
-                        value="{{ old('name') }}"
+                        value="{{ old('nombre') }}"
                         placeholder="Ingresá tu nombre"
                     >
                 </div>

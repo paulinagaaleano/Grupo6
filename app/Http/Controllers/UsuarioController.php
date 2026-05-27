@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; 
+use App\Models\Usuario; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +14,7 @@ class UsuarioController extends Controller
     public function index()
     {
         // Trae todos los usuarios de la tabla 'users'
-        $usuarios = User::all();
+        $usuarios = Usuario::all();
         
         // Retorna la vista siguiendo la estructura de carpetas exigida en el PDF
         return view('backend.usuarios.index', compact('usuarios'));
@@ -34,20 +34,20 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        // 🌟 CORREGIDO: Cambiado 'nombre' por 'name' para que coincida con el objeto y el PDF
+        
         $request->validate([
-           'name' => 'required|string|max:255',
-           'email' => 'required|email|unique:users,email',
+           'nombre' => 'required|string|max:255',
+           'email' => 'required|email|unique:usuario,email',
            'password' => 'required|min:6|confirmed', // Mínimo 6 caracteres según tu PDF
-           'rol' => 'required|string', // Atributo 'rol' de tipo texto exigido por la cátedra
+           'rol_id' => 'required|string', // Atributo 'rol' de tipo texto exigido por la cátedra
         ]);
 
         // Guardamos el registro en la base de datos de forma limpia
-        User::create([
-            'name' => $request->name,
+        Usuario::create([
+            'nombre' => $request->nombre,
             'email' => $request->email,
             'password' => Hash::make($request->password), // Encriptación segura de contraseña
-            'rol' => $request->rol, // Guarda 'admin' o 'cliente' tal como indica tu guía 
+            'rol_id' => $request->rol_id, // Guarda 'admin' o 'cliente' tal como indica tu guía 
         ]);
 
         return redirect()->route('usuarios.index')->with('exito', 'Usuario registrado correctamente.');
@@ -56,7 +56,7 @@ class UsuarioController extends Controller
     /**
      * Muestra un usuario específico (No implementado en este caso).
      */
-    public function show(User $usuario)
+    public function show(Usuario $usuario)
     {
         //
     }
@@ -64,7 +64,7 @@ class UsuarioController extends Controller
     /**
      * Muestra el formulario para editar el recurso.
      */
-    public function edit(User $usuario)
+    public function edit(Usuario $usuario)
     {
         return view('backend.usuarios.edit', compact('usuario'));
     }
@@ -72,15 +72,15 @@ class UsuarioController extends Controller
     /**
      * Actualiza el usuario especificado en la base de datos.
      */
-    public function update(Request $request, User $usuario)
+    public function update(Request $request, Usuario $usuario)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $usuario->id,
-            'rol' => 'required|string',
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|unique:usuario,email,' . $usuario->id,
+            'rol_id' => 'required|string',
          ]);
 
-         $usuario->update($request->only(['name', 'email', 'rol']));
+         $usuario->update($request->only(['nombre', 'email', 'rol_id']));
 
          return redirect()->route('usuarios.index')->with('exito', 'Usuario actualizado.');
     }
@@ -88,7 +88,7 @@ class UsuarioController extends Controller
     /**
      * Elimina el usuario del almacenamiento.
      */
-    public function destroy(User $usuario)
+    public function destroy(Usuario $usuario)
     {
         $usuario->delete();
         return redirect()->route('usuarios.index')->with('exito', 'Usuario eliminado con éxito.');  

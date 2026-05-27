@@ -10,7 +10,7 @@ class Rol extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'rol'; 
+    protected $table = 'roles'; 
 
     // Permitimos la asignación masiva del nombre y la descripción
     protected $fillable = ['nombre', 'descripcion'];
@@ -18,6 +18,6 @@ class Rol extends Model
     // Relación corregida apuntando a User y con la columna correcta
     public function usuarios() 
     {
-        return $this->hasMany(User::class, 'rol');
+        return $this->hasMany(Usuario::class, 'roles');
     }
 }

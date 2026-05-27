@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Usuario extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'users';
+    protected $table = 'usuarios';
 
     protected $fillable = [
-        'name',
+        'nombre',
         'email',
         'password',
-        'rol'
+        'rol_id'
     ];
 
     protected $hidden = [
@@ -30,5 +30,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+     public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'rol_id');
     }
 }

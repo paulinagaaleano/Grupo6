@@ -85,22 +85,22 @@
                         </tr>
                    </thead>
                     <tbody style="font-size: 0.95rem;">
-                        @foreach($usuarios as $users)
+                        @foreach($usuarios as $usuario)
                         <tr>
-                            <th scope="row" class="ps-3 text-muted">{{ $users->id }}</th>
+                            <th scope="row" class="ps-3 text-muted">{{ $usuario->id }}</th>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div class="text-dark rounded-circle d-flex align-items-center justify-content-center me-2 fw-bold" style="width: 32px; height: 32px; font-size: 0.8rem; background-color: #f7c8d1; text-transform: uppercase;">
-                                        {{ strtoupper(substr($users->name, 0, 2)) }}
+                                        {{ strtoupper(substr($usuario->nombre, 0, 2)) }}
                                     </div>
-                                    <span class="text-capitalize">{{ $users->name }}</span>
+                                    <span class="text-capitalize">{{ $usuario->nombre }}</span>
                                 </div>
                             </td>
-                            <td>{{ $users->email }}</td>
+                            <td>{{ $usuario->email }}</td>
                             <td>
                               
-    {{-- 🌟 Usamos strtolower y trim para ignorar mayúsculas y espacios fantasmas --}}
-    @if(strtolower(trim($users->role)) === 'admin' || strtolower(trim($users->rol)) === 'admin')
+    {{-- Usamos strtolower y trim para ignorar mayúsculas y espacios fantasmas --}}
+    @if(strtolower(trim($usuario->rol_id)) === 'admin' || strtolower(trim($usuario->rol_id)) === 'admin')
         <span class="badge px-2 py-1 text-white" style="background-color: #181114;">Admin</span>
     @else
         <span class="badge px-2 py-1 text-dark" style="background-color: #eae2e2;">Cliente</span>
@@ -108,7 +108,7 @@
 
                             </td>
                             <td class="pe-3 text-muted">
-                                {{ $users->created_at ? $users->created_at->format('d/m/Y') : '24/05/2026' }}
+                                {{ $usuario->created_at ? $usuario->created_at->format('d/m/Y') : '24/05/2026' }}
                             </td>
                         </tr>
                         @endforeach

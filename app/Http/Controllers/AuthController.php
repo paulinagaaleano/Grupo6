@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Usuario;
+use App\Models\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,16 +32,18 @@ class AuthController extends Controller
     public function registrar(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:usuarios',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        User::create([
-            'name' => $request->name,
+        $rolCliente = Rol::where('nombre', 'cliente')->first();
+
+        Usuario::create([
+            'nombre' => $request->nombre,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'rol' => 'cliente',
+            'rol_id' => $rolCliente->id,
         ]);
 
         return redirect()
@@ -62,10 +65,10 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            $user = Auth::user();
+            $usuario = Auth::user();
 
             // Limpiar texto del rol
-            $rol = strtolower(trim($user->rol));
+            $rol = strtolower(trim($usuario->rol->nombre));
 
             // Redirección según rol
             if ($rol === 'admin') {
