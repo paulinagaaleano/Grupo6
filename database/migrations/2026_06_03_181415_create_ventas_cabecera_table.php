@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('ventas_cabecera', function (Blueprint $table) {
             $table->id();
+            $table->timestamps('fecha_venta')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('estado')->default('carrito');
+            // 'carrito' = en proceso | 'confirmado' = compra realizada
+            $table->decimal('total', 10, 2)->default(0);
             $table->timestamps();
         });
     }
