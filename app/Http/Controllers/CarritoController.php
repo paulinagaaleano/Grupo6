@@ -58,4 +58,5 @@ class CarritoController extends Controller
         $this->recalcularTotal($carrito); 
         return back()->with('success', 'Producto agregado al carrito'); 
     }
+    
 }
