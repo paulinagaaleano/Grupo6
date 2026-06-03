@@ -25,7 +25,6 @@
                         
                         <p class="text-pink fw-bold">${{ number_format($producto->precio, 0, ',', '.') }}</p>
                         
-                       /* <a href="{{ url('/construccion') }}" class="btn btn-sm w-10 rounded-0"> COMPRAR </a> */
                         
                         <form action="{{ route('carrito.agregar') }}" method="POST">
                             @csrf

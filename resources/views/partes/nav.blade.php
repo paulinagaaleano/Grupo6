@@ -60,6 +60,7 @@
                     <a class="nav-link px-3" href="{{ url('/consultas') }}">Consultas</a>
                 </li>
 
+
                @guest
     <li class="nav-item">
         <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
@@ -119,6 +120,17 @@
     </li>
 
 @endauth
+
+         <li class="nav-item me-2">
+            <a class="nav-link px-3 position-relative" href="{{ route('cliente.carrito') }}">
+                        <span class="fs-5">🛒</span>
+                        @if(session('carrito') && count(session('carrito')) > 0)
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger" style="font-size: 0.7rem; padding: 0.35em 0.5em;">
+                                {{ count(session('carrito')) }}
+                            </span>
+                        @endif
+                    </a>
+                </li>
             </ul>
         </div>
 
