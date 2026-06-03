@@ -67,7 +67,6 @@ Route::post('/registro', [AuthController::class, 'registrar'])->name('registro.g
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
 /*
 |--------------------------------------------------------------------------
 | Rutas protegidas
