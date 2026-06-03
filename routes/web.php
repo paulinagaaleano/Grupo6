@@ -5,7 +5,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
-
+use App\Http\Controllers\CarritoController;
 /*
 |--------------------------------------------------------------------------
 | Rutas públicas
@@ -81,3 +81,26 @@ Route::get('/cliente/dashboard', [ClienteController::class, 'index'])
 
 Route::get('/carrito', [ClienteController::class, 'index'])
     ->name('carrito');
+
+
+Route::middleware(['auth', 'rol:cliente'])->group(function () {
+ // Mostrar el carrito
+ Route::get('/carrito', [CarritoController::class, 'index'])
+ ->name('cliente.carrito');
+ // Agregar un producto
+ Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])
+ ->name('carrito.agregar');
+ // Eliminar un producto
+ Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])
+ ->name('carrito.eliminar');
+ // Confirmar la compra
+ Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->nombre('carrito.confirmar');
+
+ // Vista de compra confirmada (protegida: redirige si no hay sesión)
+ Route::get('/compra-confirmada', function () {
+ if (!session('total')) {
+ return redirect()->route('cliente.dashboard');
+ }
+ return view('backend.usuarios.compra-confirmada');
+ })->name('compra.confirmada');
+});

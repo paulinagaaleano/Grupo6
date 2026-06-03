@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\VentaCabecera;
+use App\Models\Producto;
+
 
 use Illuminate\Http\Request;
 
@@ -58,5 +61,40 @@ class CarritoController extends Controller
         $this->recalcularTotal($carrito); 
         return back()->with('success', 'Producto agregado al carrito'); 
     }
-    
+
+    public function eliminar($id)
+ {
+    $carrito = $this->obtenerCarrito();
+    // where('id',$id) evita eliminar ítems de otro carrito
+    $carrito->detalles()->where('id', $id)->delete();
+    $this->recalcularTotal($carrito);
+    return back()->with('success', 'Producto eliminado');
+    }
+
+
+    public function confirmar()
+ {
+     $carrito = $this->obtenerCarrito();
+     if ($carrito->detalles()->count() === 0) {
+     return back()->with('error', 'Tu carrito está vacío');
+ }
+      $items = $carrito->detalles()->with('producto')->get();
+      $total = $carrito->total;
+       // Cambia estado y guarda fecha exacta de la compra
+      $carrito->update([
+      'estado' => 'confirmado',
+      'fecha_venta' => now(),
+ ]);
+ // Pasa los datos por sesión a la vista de confirmación
+ return redirect()->route('compra.confirmada')
+ ->with('items', $items)
+->with('total', $total);
+  }
+
+  private function recalcularTotal(VentaCabecera $carrito)
+ {
+ // sum() suma todos los subtotales de los ítems del carrito
+     $total = $carrito->detalles()->sum('subtotal');
+     $carrito->update(['total' => $total]);
+ }
 }
