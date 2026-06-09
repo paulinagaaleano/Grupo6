@@ -10,9 +10,13 @@
         
         <p class="fw-bold text-dark mt-auto">${{ number_format($producto->precio, 0, ',', '.') }}</p>
         
-        <div class="pt-2">
-            <a href="{{ url('/construccion') }}" class="btn btn-sm w-10 rounded-0"> COMPRAR </a>
-                
-        </div>
+        <form action="{{ route('carrito.agregar') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+    
+                            <input type="hidden" name="cantidad" value="1">
+    
+                             <button type="submit" class="btn btn-sm w-10 rounded-0"> COMPRAR </button>
+            </form>
     </div>
 </div>

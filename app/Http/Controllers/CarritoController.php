@@ -77,18 +77,21 @@ class CarritoController extends Controller
      $carrito = $this->obtenerCarrito();
      if ($carrito->detalles()->count() === 0) {
      return back()->with('error', 'Tu carrito está vacío');
- }
+     }
       $items = $carrito->detalles()->with('producto')->get();
       $total = $carrito->total;
        // Cambia estado y guarda fecha exacta de la compra
       $carrito->update([
       'estado' => 'confirmado',
       'fecha_venta' => now(),
- ]);
+      
+    ]);
  // Pasa los datos por sesión a la vista de confirmación
  return redirect()->route('compra.confirmada')
  ->with('items', $items)
 ->with('total', $total);
+
+   return redirect()->route('inicio') ->with('success', '¡Compra realizada con éxito! Nos pondremos en contacto contigo.');
   }
 
   private function recalcularTotal(VentaCabecera $carrito)

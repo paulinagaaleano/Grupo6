@@ -45,7 +45,7 @@ Route::get('/coleccion', [ProductoController::class, 'mostrarColecciones']);
 
 Route::get('/catalogo', [ProductoController::class, 'mostrarColecciones']);
 
-Route::get('/catalogo/todos', [ProductoController::class, 'mostrarTodos']);
+Route::get('/catalogo/todos', [ProductoController::class, 'mostrarTodos'])->name('catalogoCompleto');;
 
 Route::get('/catalogo/{categoria}', [ProductoController::class, 'mostrarCategoria']);
 
@@ -97,11 +97,16 @@ Route::middleware(['auth'])->group(function () {
  // Confirmar la compra
  Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
 
+
+Route::get('/usuario/compra', function () {
+    return view('backend.usuarios.compra');
+})->name('compra');
+
  // Vista de compra confirmada (protegida: redirige si no hay sesión)
  Route::get('/compra-confirmada', function () {
  if (!session('total')) {
  return redirect()->route('cliente.dashboard');
  }
- return view('backend.usuarios.compra-confirmada');
+ return view('backend.usuarios.compra');
  })->name('compra.confirmada');
 });
