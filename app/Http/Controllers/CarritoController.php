@@ -101,10 +101,19 @@ class CarritoController extends Controller
     ]);
 
     // 4. Redirigir a la pantalla de confirmación pasando los datos necesarios
-    return redirect()->route('compra.confirmada')
-                     ->with('items', $items)
-                     ->with('total', $total)
-                     ->with('success', '¡Compra realizada con éxito! Nos pondremos en contacto contigo.');
+   return redirect()->route('backend.usuarios.mis_compras')
+                 ->with('success', '¡Compra realizada con éxito!');
+}
+
+public function misCompras()
+{
+    $ventas = VentaCabecera::with('detalles.producto')
+        ->where('user_id', auth()->id())
+        ->where('estado', 'confirmado')
+        ->orderBy('fecha_venta', 'desc')
+        ->get();
+
+    return view('backend.usuarios.mis_compras', compact('ventas'));
 }
 
   private function recalcularTotal(VentaCabecera $carrito)

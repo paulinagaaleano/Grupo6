@@ -9,6 +9,13 @@
 @include('partes.nav')
 
 <main>
+    @if(session('success'))
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    alert("🛒 Producto agregado al carrito correctamente");
+});
+</script>
+@endif
     @yield('contenido')
 </main>
 

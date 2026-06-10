@@ -53,6 +53,11 @@ class UsuarioController extends Controller
         return redirect()->route('usuarios.index')->with('exito', 'Usuario registrado correctamente.');
     }
 
+    public function perfil()
+{
+    return view('backend.usuarios.perfil');
+}
+
     /**
      * Muestra un usuario específico (No implementado en este caso).
      */

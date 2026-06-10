@@ -88,36 +88,42 @@
     @endif
 
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle fw-semibold px-3"
-           href="#"
-           role="button"
-           data-bs-toggle="dropdown">
+    <a class="nav-link dropdown-toggle fw-semibold px-3"
+       href="#"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
 
-            👤 {{ auth()->user()->name }}
-        </a>
+        👤 {{ auth()->user()->name }}
+    </a>
 
-        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3">
 
-            <li>
-                <span class="dropdown-item-text text-muted small">
-                    Sesión iniciada
-                </span>
-            </li>
+        <li>
+            <a class="dropdown-item py-2" href="{{ route('perfil') }}">
+                👤 Mi Perfil
+            </a>
+        </li>
 
-            <li><hr class="dropdown-divider"></li>
+        <li>
+            <a class="dropdown-item py-2" href="{{ route('backend.usuarios.mis_compras') }}">
+                🛍️ Mis Compras
+            </a>
+        </li>
 
-            <li>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
+        <li><hr class="dropdown-divider"></li>
 
-                    <button type="submit" class="dropdown-item text-danger">
-                        Cerrar sesión
-                    </button>
-                </form>
-            </li>
+        <li>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="dropdown-item text-danger py-2">
+                    🚪 Cerrar sesión
+                </button>
+            </form>
+        </li>
 
-        </ul>
-    </li>
+    </ul>
+</li>
 
 @endauth
 

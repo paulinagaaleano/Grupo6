@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\UsuarioController;
 /*
 |--------------------------------------------------------------------------
 | Rutas públicas
@@ -110,3 +111,18 @@ Route::get('/usuario/compra', function () {
  return view('backend.usuarios.compra');
  })->name('compra.confirmada');
 });
+
+
+Route::get('/mis_compras', [CarritoController::class, 'misCompras'])
+    ->middleware('auth')
+    ->name('backend.usuarios.mis_compras');
+
+Route::get('/perfil', [UsuarioController::class, 'perfil'])
+    ->middleware('auth')
+    ->name('perfil');
+
+Route::post('/perfil', [UsuarioController::class, 'actualizarPerfil'])
+    ->middleware('auth')
+    ->name('perfil.actualizar');
+
+
