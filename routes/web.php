@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\UsuarioController;
 /*
 |--------------------------------------------------------------------------
 | Rutas públicas
@@ -73,8 +74,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 |--------------------------------------------------------------------------
 */
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
-    ->name('admin.dashboard');
+
 
 Route::get('/cliente/dashboard', [ClienteController::class, 'index'])
     ->name('cliente.dashboard');
@@ -109,4 +109,53 @@ Route::get('/usuario/compra', function () {
  }
  return view('backend.usuarios.compra');
  })->name('compra.confirmada');
+
+
+ /*
+|--------------------------------------------------------------------------
+| Rutas admin
+|--------------------------------------------------------------------------
+*/
+
+    // Panel y CRUD de Usuarios (AdminController)
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    //Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/usuarios/create', [AdminController::class, 'create'])->name('admin.create');
+    Route::post('/usuarios', [AdminController::class, 'store'])->name('admin.store');
+    Route::get('/usuarios/{id}', [AdminController::class, 'show'])->name('admin.show');
+    Route::get('/usuarios/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::put('/usuarios/{id}', [AdminController::class, 'update'])->name('admin.update');
+    Route::delete('/usuarios/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
+
+    // Control de Ventas de clientes (Agregados al AdminController)
+    Route::get('/ventas', [AdminController::class, 'ventas'])->name('admin.ventas.index');
+    Route::put('/ventas/{id}/estado', [AdminController::class, 'actualizarEstadoVenta'])->name('admin.ventas.update');
+
+    // Manipulación de Catálogo de Productos (ProductoController - Recursos)
+    // Esto mapea automáticamente index, create, store, edit, update, destroy para el admin
+    Route::resource('productos', ProductoController::class);
+    
+    // Gestión de Roles (RolController)
+    Route::resource('roles', RolController::class)->except(['show', 'edit', 'update']);
+
 });
+
+
+Route::get('/mis_compras', [CarritoController::class, 'misCompras'])
+    ->middleware('auth')
+    ->name('backend.usuarios.mis_compras');
+
+Route::get('/perfil', [UsuarioController::class, 'perfil'])
+    ->middleware('auth')
+    ->name('perfil');
+
+Route::post('/perfil', [UsuarioController::class, 'actualizarPerfil'])
+    ->middleware('auth')
+    ->name('perfil.actualizar');
+
+
+
+// Rutas Públicas de Catálogo (Para los clientes - Fuera del grupo de admin)
+Route::get('/colecciones', [ProductoController::class, 'mostrarColecciones'])->name('colecciones');
+Route::get('/categoria/{categoria}', [ProductoController::class, 'mostrarCategoria'])->name('categoria.show');
+Route::get('/catalogo-completo', [ProductoController::class, 'mostrarTodos'])->name('catalogo.todos');

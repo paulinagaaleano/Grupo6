@@ -32,19 +32,24 @@
                                         <span class="text-secondary">{{ auth()->user()->email }}</span>
                                     </div>
 
+                                    {{-- Dirección de envío --}}
                                     <div class="mb-3 pb-2" style="border-bottom: 1px dashed #f3dcd4;">
-                                        <span class="d-block small text-uppercase" style="color: #bc7d75; font-weight: 600;">Dirección de envíon</span>
-                                        <input type="text" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                    <span class="d-block small text-uppercase" style="color: #bc7d75; font-weight: 600;">Dirección de envío</span>
+                                    <input type="text" name="direccion" value="{{ old('direccion') }}" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary @error('direccion') is-invalid @enderror" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                     @error('direccion')
+                                    <div class="invalid-feedback ms-2">{{ $message }}</div>
+                                     @enderror
                                     </div>
+
 
                                     <p class="small text-muted fst-italic mt-4 mb-0">
                                         * Los datos se toman de tu perfil. Si necesitás modificarlos, podés hacerlo desde tu panel de usuario.
                                     </p>
-
-                                    
+   
                                     
                                 </div>
                             </div>
+
 
                             {{-- Columna Derecha: Método de Pago Dinámico --}}
                             <div class="col-md-6">
@@ -58,27 +63,33 @@
                                             Tarjeta de Crédito / Débito
                                         </label>
                                         
+                            
                                         {{-- Subformulario para Tarjeta --}}
-                                        <div id="info-tarjeta" class="mt-3 pt-3 style-pago-inputs" style="border-top: 1px dashed #f3dcd4;">
-                                            <div class="mb-2">
-                                                <input type="text" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary" placeholder="Nombre y Apellido del titular" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="text" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary" placeholder="DNI del titular" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="text" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary" placeholder="Número de Tarjeta" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-                                            </div>
-                                            <div class="row g-2">
-                                                <div class="col-7">
-                                                    <input type="text" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary" placeholder="MM/AA" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-                                                </div>
-                                                <div class="col-5">
-                                                    <input type="text" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary" placeholder="CVV" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-                                                </div>
-                                            </div>
+                                <div id="info-tarjeta" class="mt-3 pt-3 style-pago-inputs" style="border-top: 1px dashed #f3dcd4;">
+                                    <div class="mb-2">
+                                        <input type="text" name="tarjeta_titular" value="{{ old('tarjeta_titular') }}" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary @error('tarjeta_titular') is-invalid @enderror" placeholder="Nombre y Apellido del titular" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                        @error('tarjeta_titular') <div class="invalid-feedback ms-2">{{ $message }}</div> @enderror
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="text" name="tarjeta_dni" value="{{ old('tarjeta_dni') }}" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary @error('tarjeta_dni') is-invalid @enderror" placeholder="DNI del titular" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                        @error('tarjeta_dni') <div class="invalid-feedback ms-2">{{ $message }}</div> @enderror
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="text" name="tarjeta_numero" value="{{ old('tarjeta_numero') }}" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary @error('tarjeta_numero') is-invalid @enderror" placeholder="Número de Tarjeta" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                        @error('tarjeta_numero') <div class="invalid-feedback ms-2">{{ $message }}</div> @enderror
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-7">
+                                            <input type="text" name="tarjeta_vencimiento" value="{{ old('tarjeta_vencimiento') }}" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary @error('tarjeta_vencimiento') is-invalid @enderror" placeholder="MM/AA" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                            @error('tarjeta_vencimiento') <div class="invalid-feedback ms-2">{{ $message }}</div> @enderror
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="password" name="tarjeta_cvv" class="form-control form-control-sm rounded-pill border-light-subtle text-secondary @error('tarjeta_cvv') is-invalid @enderror" placeholder="CVV" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                            @error('tarjeta_cvv') <div class="invalid-feedback ms-2">{{ $message }}</div> @enderror
                                         </div>
                                     </div>
+                                </div>
+
 
                                     {{-- Opción Transferencia --}}
                                     <div class="form-check payment-box p-3 rounded-3 mb-3" style="border: 1px solid #f9eae6; background-color: #ffffff; cursor: pointer; transition: all 0.2s;">
@@ -134,36 +145,76 @@
 {{-- Lógica Interactiva (JS) y estilos --}}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const opcionTarjeta = document.getElementById("tarjeta");
-        const opcionTransferencia = document.getElementById("transferencia");
-        const opcionEfectivo = document.getElementById("efectivo");
-        
-        const bloqueTarjeta = document.getElementById("info-tarjeta");
-        const bloqueTransferencia = document.getElementById("info-transferencia");
-        const formulario = document.getElementById("form-checkout");
+            const opcionTarjeta = document.getElementById("tarjeta");
+            const opcionTransferencia = document.getElementById("transferencia");
+            const bloqueTarjeta = document.getElementById("info-tarjeta");
+            const bloqueTransferencia = document.getElementById("info-transferencia");
+            const formulario = document.getElementById("form-checkout");
 
-        // Listener para cambiar dinámicamente los paneles visibles
-        document.querySelectorAll('input[name="metodo_pago"]').forEach(radio => {
-            radio.addEventListener("change", function () {
-                if (opcionTarjeta.checked) {
-                    bloqueTarjeta.classList.remove("d-none");
-                    bloqueTransferencia.classList.add("d-none");
-                } else if (opcionTransferencia.checked) {
-                    bloqueTransferencia.classList.remove("d-none");
-                    bloqueTarjeta.classList.add("d-none");
-                } else {
-                    bloqueTarjeta.classList.add("d-none");
-                    bloqueTransferencia.classList.add("d-none");
+            // Interactividad de paneles
+            document.querySelectorAll('input[name="metodo_pago"]').forEach(radio => {
+                radio.addEventListener("change", function () {
+                    if (opcionTarjeta.checked) {
+                        bloqueTarjeta.classList.remove("d-none");
+                        bloqueTransferencia.classList.add("d-none");
+                    } else if (opcionTransferencia.checked) {
+                        bloqueTransferencia.classList.remove("d-none");
+                        bloqueTarjeta.classList.add("d-none");
+                    } else {
+                        bloqueTarjeta.classList.add("d-none");
+                        bloqueTransferencia.classList.add("d-none");
+                    }
+                });
+            });
+
+            // VALIDACIONES ANTES DEL SUBMIT
+            formulario.addEventListener("submit", function (e) {
+                // 1. Simulación/Validación de Carrito Vacío (Tomamos la lógica de la sesión)
+                // Nota: En producción esto lo frena el controlador, pero acá hacemos el doble escudo
+                const direccion = formulario.querySelector('input[name="direccion"]').value.trim();
+                
+                if (!direccion) {
+                    e.preventDefault();
+                    alert("⚠️ Por favor, ingresá una dirección de envío válida.");
+                    return;
                 }
+
+                // 2. Validaciones específicas si elige tarjeta
+                if (opcionTarjeta.checked) {
+                    const titular = formulario.querySelector('input[name="tarjeta_titular"]').value.trim();
+                    const dni = formulario.querySelector('input[name="tarjeta_dni"]').value.trim();
+                    const numero = formulario.querySelector('input[name="tarjeta_numero"]').value.trim();
+                    const vencimiento = formulario.querySelector('input[name="tarjeta_vencimiento"]').value.trim();
+                    const cvv = formulario.querySelector('input[name="tarjeta_cvv"]').value.trim();
+
+                    if (!titular || !dni || !numero || !vencimiento || !cvv) {
+                        e.preventDefault(); // Frena el envío del formulario
+                        alert("⚠️ Completá todos los campos de tu tarjeta de crédito/débito.");
+                        return;
+                    }
+
+                    // Validación básica de formato de tarjeta (16 números)
+                    if (numero.replace(/\s/g, '').length < 16 || isNaN(numero.replace(/\s/g, ''))) {
+                        e.preventDefault();
+                        alert("⚠️ El número de tarjeta debe tener 16 dígitos numéricos.");
+                        return;
+                    }
+
+                    // Validación básica de CVV (3 o 4 números)
+                    if (cvv.length < 3 || cvv.length > 4 || isNaN(cvv)) {
+                        e.preventDefault();
+                        alert("⚠️ El código CVV es inválido (deben ser 3 o 4 números).");
+                        return;
+                    }
+                }
+
+                // Si pasa todas las validaciones de JS, se ejecuta la alerta de éxito
+                alert("¡Procesando tu pedido en Aura Beauty! Esperá un momento...");
             });
         });
-
-        // Alerta nativa de éxito antes de procesar el submit al controlador
-        formulario.addEventListener("submit", function (e) {
-            alert("¡Compra realizada con éxito! Nos pondremos en contacto contigo.");
-        });
-    });
 </script>
+
+        
 
 <style>
     .btn:hover {

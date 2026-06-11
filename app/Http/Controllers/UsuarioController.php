@@ -39,7 +39,7 @@ class UsuarioController extends Controller
            'nombre' => 'required|string|max:255',
            'email' => 'required|email|unique:usuario,email',
            'password' => 'required|min:6|confirmed', // Mínimo 6 caracteres según tu PDF
-           'rol_id' => 'required|string', // Atributo 'rol' de tipo texto exigido por la cátedra
+           'rol_id' => 'required|int', // Atributo 'rol' de tipo texto exigido por la cátedra
         ]);
 
         // Guardamos el registro en la base de datos de forma limpia
@@ -52,6 +52,11 @@ class UsuarioController extends Controller
 
         return redirect()->route('usuarios.index')->with('exito', 'Usuario registrado correctamente.');
     }
+
+    public function perfil()
+{
+    return view('backend.usuarios.perfil');
+}
 
     /**
      * Muestra un usuario específico (No implementado en este caso).
@@ -77,7 +82,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|unique:usuario,email,' . $usuario->id,
-            'rol_id' => 'required|string',
+            'rol_id' => 'required|int',
          ]);
 
          $usuario->update($request->only(['nombre', 'email', 'rol_id']));

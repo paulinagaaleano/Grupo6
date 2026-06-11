@@ -9,6 +9,9 @@
 @include('partes.nav')
 
 <main>
+    @if(session('success'))
+
+@endif
     @yield('contenido')
 </main>
 

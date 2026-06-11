@@ -5,6 +5,7 @@ use App\Models\VentaCabecera;
 use App\Models\Producto;
 
 
+
 use Illuminate\Http\Request;
 
 class CarritoController extends Controller
@@ -72,27 +73,61 @@ class CarritoController extends Controller
     }
 
 
-    public function confirmar()
- {
-     $carrito = $this->obtenerCarrito();
-     if ($carrito->detalles()->count() === 0) {
-     return back()->with('error', 'Tu carrito está vacío');
-     }
-      $items = $carrito->detalles()->with('producto')->get();
-      $total = $carrito->total;
-       // Cambia estado y guarda fecha exacta de la compra
-      $carrito->update([
-      'estado' => 'confirmado',
-      'fecha_venta' => now(),
-      
-    ]);
- // Pasa los datos por sesión a la vista de confirmación
- return redirect()->route('compra.confirmada')
- ->with('items', $items)
-->with('total', $total);
+  public function confirmar()
+{
+    $carrito = $this->obtenerCarrito();
+    
+    // 1. Validar que el carrito no esté vacío
+    if ($carrito->detalles()->count() === 0) {
+        return back()->with('error', 'Tu carrito está vacío');
+    }
 
-   return redirect()->route('inicio') ->with('success', '¡Compra realizada con éxito! Nos pondremos en contacto contigo.');
-  }
+    $items = $carrito->detalles()->with('producto')->get();
+    $total = $carrito->total;
+
+    // 2. DESCONTAR STOCK: Recorrer cada producto del carrito y restarle lo comprado
+    foreach ($items as $item) {
+        $producto = $item->producto;
+        if ($producto) {
+            $producto->stock -= $item->cantidad;
+            $producto->save();
+        }
+    }
+
+    // 3. Cambiar el estado y guardar la fecha exacta de la compra
+    $carrito->update([
+        'estado' => 'confirmado',
+        'fecha_venta' => now(),
+    ]);
+
+    // 4. Redirigir a la pantalla de confirmación pasando los datos necesarios
+   return redirect()->route('backend.usuarios.mis_compras')
+                 ->with('success', '¡Compra realizada con éxito!');
+}
+
+public function misCompras()
+{
+    // Limpiamos y verificamos el rol del usuario logueado
+    $rol = strtolower(trim(auth()->user()->rol->nombre));
+
+    if ($rol === 'admin') {
+        // El Admin ve ABSOLUTAMENTE TODAS las compras confirmadas del sistema
+        // Usamos with('usuario') para saber quién es el cliente en la vista
+        $ventas = VentaCabecera::with(['detalles.producto', 'usuario'])
+            ->where('estado', 'confirmado')
+            ->orderBy('fecha_venta', 'desc')
+            ->get();
+    } else {
+        // El cliente común SOLO ve sus propias compras
+        $ventas = VentaCabecera::with('detalles.producto')
+            ->where('user_id', auth()->id())
+            ->where('estado', 'confirmado')
+            ->orderBy('fecha_venta', 'desc')
+            ->get();
+    }
+
+    return view('backend.usuarios.mis_compras', compact('ventas'));
+}
 
   private function recalcularTotal(VentaCabecera $carrito)
  {
@@ -100,4 +135,6 @@ class CarritoController extends Controller
      $total = $carrito->detalles()->sum('subtotal');
      $carrito->update(['total' => $total]);
  }
+
+ 
 }

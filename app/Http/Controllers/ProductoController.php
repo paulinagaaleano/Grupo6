@@ -39,60 +39,62 @@ class ProductoController extends Controller
     return view('catalogo.todos', compact('productos'));
     }
     
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
-    {
-        //
-    }
+{
+    // Trae los productos paginados para el panel de administración
+    $productos = Producto::with('categoria')->paginate(10); 
+    return view('backend.admin.productos.index', compact('productos'));
+}
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+public function create()
+{
+    $categorias = Categoria::all(); // Necesario para el select del formulario
+    return view('backend.admin.productos.create', compact('categorias'));
+}
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+public function store(Request $request)
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'required|string',
+        'precio' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+        'categoria_id' => 'required|exists:categorias,id', // Validación de relación
+    ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Producto $producto)
-    {
-        //
-    }
+    Producto::create($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Producto $producto)
-    {
-        //
-    }
+    return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');
+}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Producto $producto)
-    {
-        //
-    }
+public function edit(Producto $producto)
+{
+    $categorias = Categoria::all();
+    return view('backend.admin.productos.edit', compact('producto', 'categorias'));
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Producto $producto)
-    {
-        //
-    }
+public function update(Request $request, Producto $producto)
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'required|string',
+        'precio' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+        'categoria_id' => 'required|exists:categorias,id',
+    ]);
+
+    $producto->update($request->all());
+
+    return redirect()->route('productos.index')->with('success', 'Producto actualizado.');
+}
+
+public function destroy(Producto $producto)
+{
+    // Borra el producto de la base de datos
+    $producto->delete();
+
+    // Redirecciona de vuelta con un mensaje de éxito limpio
+    return redirect()->back()->with('success', 'El producto fue eliminado correctamente del catálogo.');
+}
 
 }

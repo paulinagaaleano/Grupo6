@@ -30,100 +30,63 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto align-items-center">
+    <ul class="navbar-nav ms-auto align-items-center text-nowrap">
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle px-3 text-uppercase" href="#" data-bs-toggle="dropdown">
-                        Catálogo
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2 text-uppercase" href="#" data-bs-toggle="dropdown">
+                Catálogo
+            </a>
+            <ul class="dropdown-menu border-0 shadow-sm">
+                <li><a class="dropdown-item" href="{{ url('/catalogo/labiales') }}">Labiales</a></li>
+                <li><a class="dropdown-item" href="{{ url('/catalogo/bases') }}">Bases Líquidas</a></li>
+                <li><a class="dropdown-item" href="{{ url('/catalogo/rubores') }}">Rubores</a></li>
+                <li><a class="dropdown-item" href="{{ url('/catalogo/correctores') }}">Correctores</a></li>
+                <li><a class="dropdown-item" href="{{ url('/catalogo/iluminadores') }}">Iluminadores</a></li>
+                <li><a class="dropdown-item" href="{{ url('/catalogo/polvos') }}">Polvos Compactos</a></li>
+                <li><a class="dropdown-item" href="{{ url('/catalogo/todos') }}">Todos los productos</a></li>
+            </ul>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link px-2" href="{{ url('/quienes-somos') }}">Quiénes Somos</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link px-2" href="{{ url('/comercializacion') }}">Comercialización</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link px-2" href="{{ url('/consultas') }}">Consultas</a>
+        </li>
+
+        @guest
+            <li class="nav-item">
+                <a class="nav-link px-2" href="{{ route('login') }}">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-2" href="{{ route('registro.guardar') }}">Registrarse</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-2" href="{{ route('cliente.carrito') }}">🛒</a>
+            </li>
+        @endguest
+
+        @auth
+            @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
+                <li class="nav-item">
+                    <a class="nav-link px-2 fw-bold text-dark text-nowrap" href="{{ route('admin.dashboard') }}">
+                        Panel Admin
                     </a>
-
-                    <ul class="dropdown-menu border-0 shadow-sm">
-                        <li><a class="dropdown-item" href="{{ url('/catalogo/labiales') }}">Labiales</a></li>
-                        <li><a class="dropdown-item" href="{{ url('/catalogo/bases') }}">Bases Líquidas</a></li>
-                        <li><a class="dropdown-item" href="{{ url('/catalogo/rubores') }}">Rubores</a></li>
-                        <li><a class="dropdown-item" href="{{ url('/catalogo/correctores') }}">Correctores</a></li>
-                        <li><a class="dropdown-item" href="{{ url('/catalogo/iluminadores') }}">Iluminadores</a></li>
-                        <li><a class="dropdown-item" href="{{ url('/catalogo/polvos') }}">Polvos Compactos</a></li>
-                        <li><a class="dropdown-item" href="{{ url('/catalogo/todos') }}">Todos los productos</a></li>
-                    </ul>
                 </li>
-
+            @else
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="{{ url('/quienes-somos') }}">Quiénes Somos</a>
+                    <a class="nav-link px-2" href="{{ route('cliente.dashboard') }}">
+                        Mi Cuenta
+                    </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="{{ url('/comercializacion') }}">Comercialización</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link px-3" href="{{ url('/consultas') }}">Consultas</a>
-                </li>
-
-
-               @guest
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('registro.guardar') }}">Registrarse</a>
-    </li>
-@endguest
-
-@auth
-
-    @if(auth()->user()->rol === 'admin')
-        <li class="nav-item">
-            <a class="nav-link px-3" href="{{ route('admin.dashboard') }}">
-                Panel Admin
-            </a>
-        </li>
-    @else
-        <li class="nav-item">
-            <a class="nav-link px-3" href="{{ route('cliente.dashboard') }}">
-                Mi Cuenta
-            </a>
-        </li>
-    @endif
-
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle fw-semibold px-3"
-           href="#"
-           role="button"
-           data-bs-toggle="dropdown">
-
-            👤 {{ auth()->user()->name }}
-        </a>
-
-        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
-
-            <li>
-                <span class="dropdown-item-text text-muted small">
-                    Sesión iniciada
-                </span>
-            </li>
-
-            <li><hr class="dropdown-divider"></li>
-
-            <li>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-
-                    <button type="submit" class="dropdown-item text-danger">
-                        Cerrar sesión
-                    </button>
-                </form>
-            </li>
-
-        </ul>
-    </li>
-
-@endauth
-
-         <li class="nav-item me-2">
-            <a class="nav-link px-3 position-relative" href="{{ route('cliente.carrito') }}">
-                        <span class="fs-5">🛒</span>
+                    <a class="nav-link px-2 position-relative" href="{{ route('cliente.carrito') }}">
+                        <span>🛒</span>
                         @if(session('carrito') && count(session('carrito')) > 0)
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger" style="font-size: 0.7rem; padding: 0.35em 0.5em;">
                                 {{ count(session('carrito')) }}
@@ -131,8 +94,35 @@
                         @endif
                     </a>
                 </li>
-            </ul>
-        </div>
+            @endif
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fw-semibold px-2 text-nowrap"
+                   href="#"
+                   role="button"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    {{ auth()->user()->nombre ?? auth()->user()->name }}
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-3">
+                    <li><a class="dropdown-item py-2" href="{{ route('perfil') }}">👤 Mi Perfil</a></li>
+                        @if(strtolower(trim(auth()->user()->rol->nombre)) === 'cliente')
+                            <li><a class="dropdown-item py-2" href="{{ route('backend.usuarios.mis_compras') }}">🛍️ Mis Compras</a></li>
+                        @endif
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger py-2">🚪 Cerrar sesión</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        @endauth
+
+    </ul>
+</div>
 
     </div>
 </nav>

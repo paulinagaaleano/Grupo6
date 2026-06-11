@@ -41,33 +41,37 @@
             </div>
 
             <div class="col-md-4">
-                <div class="card h-100 indicator-card-bg shadow-sm rounded-3">
-                    <div class="card-body d-flex align-items-center p-4">
-                        <div class="fs-2 text-dark me-4">
-                            <i class="bi bi-sparkles"></i>
-                        </div>
-                        <div>
-                            <p class="card-title mb-1 small text-muted">Productos</p>
-                            <h3 class="m-0 fw-bold" style="font-size: 2rem;">0</h3>
+                <a href="{{ route('catalogo.todos') }}" class="text-decoration-none text-dark">
+                    <div class="card h-100 indicator-card-bg shadow-sm rounded-3 hover-shadow transition">
+                        <div class="card-body d-flex align-items-center p-4">
+                            <div class="fs-2 text-dark me-4">
+                                <i class="bi bi-sparkles"></i>
+                            </div>
+                            <div>
+                                <p class="card-title mb-1 small text-muted">Productos</p>
+                                <h3 class="m-0 fw-bold" style="font-size: 2rem;">{{ $totalProductos }}</h3>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-md-4">
-                <div class="card h-100 indicator-card-bg shadow-sm rounded-3">
-                    <div class="card-body d-flex align-items-center p-4">
-                        <div class="fs-2 text-dark me-4">
-                            <i class="bi bi-bag"></i>
-                        </div>
-                        <div>
-                            <p class="card-title mb-1 small text-muted">Pedidos</p>
-                            <h3 class="m-0 fw-bold" style="font-size: 2rem;">0</h3>
+                <a href="{{ route('backend.usuarios.mis_compras') }}" class="text-decoration-none text-dark">
+                    <div class="card h-100 indicator-card-bg shadow-sm rounded-3 hover-shadow transition">
+                        <div class="card-body d-flex align-items-center p-4">
+                            <div class="fs-2 text-dark me-4">
+                                <i class="bi bi-bag"></i>
+                            </div>
+                            <div>
+                                <p class="card-title mb-1 small text-muted">Pedidos</p>
+                                <h3 class="m-0 fw-bold" style="font-size: 2rem;">{{ $totalPedidos }}</h3>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
-        </div>
+          </div>
 
         <div class="card border-0 shadow-sm rounded-3 mb-5">
             <div class="card-header dark-header p-3 fw-bold d-flex align-items-center">
@@ -100,7 +104,7 @@
                             <td>
                               
     {{-- Usamos strtolower y trim para ignorar mayúsculas y espacios fantasmas --}}
-    @if(strtolower(trim($usuario->rol_id)) === 'admin' || strtolower(trim($usuario->rol_id)) === 'admin')
+    @if(strtolower(trim($usuario->rol_id)) === '1' || strtolower(trim($usuario->rol_id)) === '1')
         <span class="badge px-2 py-1 text-white" style="background-color: #181114;">Admin</span>
     @else
         <span class="badge px-2 py-1 text-dark" style="background-color: #eae2e2;">Cliente</span>
@@ -123,9 +127,13 @@
             </div>
             <div class="card-body p-4 bg-light">
                 <div class="d-flex gap-2">
-                    <a href="#" class="btn btn-aura-dark px-4 py-2 shadow-sm">
-                        <i class="bi bi-folder-plus me-2"></i>Gestionar productos
-                    </a>
+                    <a href="{{ route('catalogo.todos') }}" class="btn btn-aura-dark px-4 py-2 shadow-sm">
+    <i class="bi bi-folder-plus me-2"></i>Gestionar productos
+</a>
+
+<a href="{{ route('backend.usuarios.mis_compras') }}" class="btn btn-aura-dark px-4 py-2 shadow-sm">
+    <i class="bi bi-folder-plus me-2"></i>Gestionar ventas
+</a>
                     <a href="/" class="btn btn-outline-secondary px-4 py-2 shadow-sm">
                         <i class="bi bi-arrow-left me-2"></i>Volver a la Tienda
                     </a>
