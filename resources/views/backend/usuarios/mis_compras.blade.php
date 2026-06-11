@@ -2,11 +2,11 @@
 
 @section('contenido')
 <div class="container py-5">
-    <h2 class="mb-4" style="font-family: 'Playfair Display';">
+    <h2 class="mb-4" style="font-family: 'Playfair Display'; font-weight: 700;">
         @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
             Historial de ventas
         @else
-            🛍️ Mis Compras
+            Mis Compras
         @endif
     </h2>
 
@@ -26,7 +26,7 @@
                         @endif
                         <th>PRODUCTOS</th>
                         <th>TOTAL</th>
-                        <th>ESTADO / ACCIONES</th>
+                        <th class="text-center">ESTADO / ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,23 +50,30 @@
                                 </ul>
                             </td>
                             <td class="fw-bold text-pink">${{ number_format($venta->total, 0, ',', '.') }}</td>
+                            
+                            {{-- 🌟 COLUMNA DE ACCIONES INTEGRADA Y MODIFICADA 🌟 --}}
                             <td>
-                                @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
-                                    {{-- PERMISOS DE ADMIN: Puede cambiar el estado si quisieras, o ver un control extendido --}}
-                                    <span class="badge bg-success text-white px-3 py-2 rounded-0">CONFIRMADA</span>
-                                    
-                                    {{-- Opcional: Si en tu base de datos manejás despachos, acá podés meter un botón de acción --}}
-                                @else
-                                    {{-- VISTA DEL CLIENTE: Solo ve que está confirmado --}}
-                                    <span class="badge bg-dark text-white px-2 py-1">Pagado e Histórico</span>
-                                @endif
+                                <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
+                                    @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
+                                        <span class="badge bg-success text-white px-3 py-2 rounded-0 small">CONFIRMADA</span>
+                                    @else
+                                        <span class="badge bg-dark text-white px-3 py-2 rounded-0 small">PAGADO</span>
+                                    @endif
+
+                                    {{-- El botón dinámico vinculado al ID de cada fila individual --}}
+                                    <a href="{{ route('compras.factura', $venta->id) }}" target="_blank" class="btn btn-sm btn-outline-dark rounded-0 px-3 fw-semibold small" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> Factura
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
 
                     @if($ventas->count() === 0)
                         <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">No se registran operaciones en el sistema.</td>
+                            <td colspan="@if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin') 6 @else 5 @endif" class="text-center py-4 text-muted">
+                                No se registran operaciones en el sistema.
+                            </td>
                         </tr>
                     @endif
                 </tbody>

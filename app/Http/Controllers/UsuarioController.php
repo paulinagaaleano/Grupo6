@@ -98,4 +98,37 @@ class UsuarioController extends Controller
         $usuario->delete();
         return redirect()->route('usuarios.index')->with('exito', 'Usuario eliminado con éxito.');  
     }
+
+    /**
+ * Actualiza los datos del perfil del usuario en sesión.
+ */
+/**
+ * Actualiza los datos de perfil y la contraseña si se solicita.
+ */
+public function actualizarPerfil(Request $request)
+{
+    $usuario = auth()->user();
+
+    // 1. Validamos los datos básicos y opcionalmente la clave nueva
+    $request->validate([
+        'nombre'   => 'required|string|max:255',
+        'email'    => 'required|email|max:255|unique:usuarios,email,' . $usuario->id,
+        // 'nullable' significa que puede ir vacío; 'confirmed' exige que coincida con password_confirmation
+        'password' => 'nullable|string|min:6|confirmed', 
+    ]);
+
+    // 2. Modificamos los datos generales
+    $usuario->nombre = $request->nombre;
+    $usuario->email = $request->email;
+
+    // 3. ¡El truco de seguridad! Solo cambiamos la clave si el input viene con datos
+    if ($request->filled('password')) {
+        $usuario->password = Hash::make($request->password);
+    }
+
+    // 4. Guardamos todo en SQLite de un tirón
+    $usuario->save();
+
+    return redirect()->back()->with('success', '¡Tus datos de perfil y credenciales fueron actualizados!');
+}
 }

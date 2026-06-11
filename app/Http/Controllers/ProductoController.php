@@ -41,9 +41,11 @@ class ProductoController extends Controller
     
     public function index()
 {
+
+$categorias = Categoria::all();
     // Trae los productos paginados para el panel de administración
     $productos = Producto::with('categoria')->paginate(10); 
-    return view('backend.admin.productos.index', compact('productos'));
+    return view('backend.admin.productos.create', compact('categorias', 'productos'));
 }
 
 public function create()
@@ -60,6 +62,7 @@ public function store(Request $request)
         'precio' => 'required|numeric|min:0',
         'stock' => 'required|integer|min:0',
         'categoria_id' => 'required|exists:categorias,id', // Validación de relación
+        'imagen' => 'required|string|max:255',
     ]);
 
     Producto::create($request->all());

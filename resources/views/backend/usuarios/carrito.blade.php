@@ -58,11 +58,41 @@
                                             <td class="py-3 fw-medium" style="color: #554444;">
                                                 {{ $item->producto->nombre }}
                                             </td> 
-                                            <td class="py-3 text-center">
-                                                <span class="badge rounded-pill px-3 py-2" style="background-color: #fdedec; color: #d98880;">
-                                                    {{ $item->cantidad }}
-                                                </span>
-                                            </td> 
+                                            <td class="py-3 text-center" style="min-width: 130px;">
+    <div class="d-flex align-items-center justify-content-center gap-2">
+        
+        {{-- BOTÓN DISMINUIR --}}
+        <form method="POST" action="{{ route('carrito.actualizarCantidad', $item->id) }}" class="m-0">
+            @csrf
+            @method('PATCH')
+            {{-- Le mandamos cantidad -1 para restar --}}
+            <input type="hidden" name="operacion" value="restar">
+            <button type="submit" class="btn btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center" 
+                    style="width: 26px; height: 26px; background-color:  #f5fcf5; color: #bc7d75; border: 1px solid #fcdada; font-weight: bold; font-size: 0.9rem;"
+                    {{ $item->cantidad <= 1 ? 'disabled' : '' }}>
+                -
+            </button>
+        </form>
+
+                {{--CANTIDAD ACTUAL --}}
+                <span class="fw-bold px-2" style="color: #554444; font-size: 0.95rem;">
+                    {{ $item->cantidad }}
+                </span>
+
+                {{-- BOTÓN AUMENTAR --}}
+                <form method="POST" action="{{ route('carrito.actualizarCantidad', $item->id) }}" class="m-0">
+                    @csrf
+                    @method('PATCH')
+                    {{-- Le mandamos cantidad +1 para sumar --}}
+                    <input type="hidden" name="operacion" value="sumar">
+                    <button type="submit" class="btn btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center" 
+                            style="width: 26px; height: 26px; background-color: #f5fcf5; color: #bc7d75; border: 1px solid #fcdada; font-weight: bold; font-size: 0.9rem;">
+                        +
+                    </button>
+                </form>
+
+            </div>
+        </td>
                                             <td class="py-3 text-end">${{ number_format($item->precio_unitario, 2) }}</td> 
                                             <td class="py-3 text-end fw-semibold" style="color: #bc7d75;">
                                                 ${{ number_format($item->subtotal, 2) }}

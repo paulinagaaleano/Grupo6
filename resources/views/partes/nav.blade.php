@@ -55,9 +55,24 @@
             <a class="nav-link px-2" href="{{ url('/comercializacion') }}">Comercialización</a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link px-2" href="{{ url('/consultas') }}">Consultas</a>
-        </li>
+       {{-- 1. Primero le preguntamos a Laravel si hay una sesión iniciada --}}
+        @auth
+            {{-- 2. Si hay sesión, recién ahí evaluamos si es Administrador o Cliente --}}
+            @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
+                <li class="nav-item">
+                    <a href="{{ route('admin.consultas.index') }}" class="nav-link px-2">Consultas</a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{ url('/consultas') }}" class="nav-link px-2">Consultas</a>
+                </li>
+            @endif
+        @else
+            {{-- 3. Si NO hay nadie logueado (como cuando recién cerrás sesión), muestra la ruta común de forma segura --}}
+            <li class="nav-item">
+                <a href="{{ url('/consultas') }}" class="nav-link px-2">Consultas</a>
+            </li>
+        @endauth
 
         @guest
             <li class="nav-item">

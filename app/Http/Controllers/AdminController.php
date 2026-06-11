@@ -162,4 +162,108 @@ public function actualizarEstadoVenta(Request $request, $id)
 
     return redirect()->back()->with('success', 'Estado del pedido actualizado.');
 }
+
+
+/**
+ * Recibe la consulta desde la web y la guarda temporalmente en la SESIÓN.
+ */
+public function guardarConsultaSimulada(Request $request)
+{
+    $request->validate([
+        'nombre'  => 'required|string|max:255',
+        'email'   => 'required|email',
+        'asunto'  => 'required|string',
+        'mensaje' => 'required|string',
+    ]);
+
+    // OBTENEMOS LAS CONSULTAS QUE YA EXISTAN EN LA SESIÓN (o un array vacío si es la primera)
+    $consultas = session()->get('consultas_array', []);
+
+    // ARMAMOS LA NUEVA CONSULTA
+    $nuevaConsulta = [
+        'fecha'   => now()->format('d/m/Y H:i'),
+        'nombre'  => $request->nombre,
+        'email'   => $request->email,
+        'asunto'  => $request->asunto,
+        'mensaje' => $request->mensaje,
+    ];
+
+    // LA AGREGAMOS AL CONTENEDOR Y GUARDAMOS EN LA SESIÓN
+    $consultas[] = $nuevaConsulta;
+    session()->put('consultas_array', $consultas);
+
+    return redirect()->back()->with('success', '¡Consulta enviada con éxito! (Simulada en sesión).');
+}
+
+/**
+ * PRIVADO (ADMIN): Muestra el listado de mensajes temporales acumulados.
+ */
+public function consultasIndex()
+{
+    // Leemos el array de la sesión (si no hay ninguno, pasamos un array vacío)
+    $consultas = session()->get('consultas_array', []);
+
+    return view('backend.admin.consultas.index', compact('consultas'));
+}
+
+/**
+ * Guarda las modificaciones de texto de la vista de contacto en la sesión global.
+ */
+public function updateContactoSimulado(Request $request)
+{
+    // Almacenamos el array con los nuevos datos ingresados por el admin
+    session()->put('datos_contacto', [
+        'email_publico'  => $request->email_publico,
+        'email_reclamos' => $request->email_reclamos,
+        'tel_publico'    => $request->tel_publico,
+        'tel_reclamos'   => $request->tel_reclamos,
+        'titulares'      => $request->titulares,
+        'razon_social'   => $request->razon_social,
+        'domicilio'      => $request->domicilio,
+    ]);
+
+    return redirect()->back()->with('success', '¡Datos informativos actualizados correctamente!');
+}
+
+/**
+ * Modifica el rol_id de un usuario específico en la base de datos.
+ */
+public function cambiarRol(Request $request, $id)
+{
+    // Buscamos al usuario
+    $usuario = Usuario::findOrFail($id);
+
+    // Evitamos que el admin logueado se des-asigne a sí mismo
+    if ($usuario->id === auth()->id()) {
+        return redirect()->back()->with('error', 'No puedes quitarte los permisos a ti mismo.');
+    }
+
+    // Actualizamos el rol_id (1 para Admin, 2 para Cliente)
+    $usuario->rol_id = $request->rol_id;
+    $usuario->save();
+
+    return redirect()->back()->with('success', "El rol de {$usuario->nombre} fue modificado con éxito.");
+}
+
+/**
+ * Crea un usuario nuevo directamente asignado con el rol de Administrador (rol_id = 1).
+ */
+public function crearAdmin(Request $request)
+{
+    $request->validate([
+        'nombre'   => 'required|string|max:255',
+        'email'    => 'required|email|unique:usuarios,email', // Valida que el email no esté repetido
+        'password' => 'required|string|min:6',
+    ]);
+
+    // Registramos en la base de datos
+    Usuario::create([
+        'nombre'   => $request->nombre,
+        'email'    => $request->email,
+        'password' => \Hash::make($request->password), // Encriptamos la clave por seguridad
+        'rol_id'   => 1, // 👈 Forzamos que sea Rol Administrador de fábrica
+    ]);
+
+    return redirect()->back()->with('success', '¡Nuevo administrador registrado exitosamente!');
+}
 }

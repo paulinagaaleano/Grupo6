@@ -97,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
  // Confirmar la compra
  Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
 
+Route::patch('/carrito/actualizar-cantidad/{id}', [CarritoController::class, 'actualizarCantidad'])->name('carrito.actualizarCantidad');
 
 Route::get('/usuario/compra', function () {
     return view('backend.usuarios.compra');
@@ -109,6 +110,9 @@ Route::get('/usuario/compra', function () {
  }
  return view('backend.usuarios.compra');
  })->name('compra.confirmada');
+
+ 
+ Route::get('/compra/factura/{id}', [CarritoController::class, 'emitirFactura'])->name('compras.factura');
 
 
  /*
@@ -127,6 +131,10 @@ Route::get('/usuario/compra', function () {
     Route::put('/usuarios/{id}', [AdminController::class, 'update'])->name('admin.update');
     Route::delete('/usuarios/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
+  
+    Route::patch('/usuarios/{id}/cambiar-rol', [AdminController::class, 'cambiarRol'])->name('admin.usuarios.cambiarRol');
+    Route::post('/usuarios/crear-admin', [AdminController::class, 'crearAdmin'])->name('admin.usuarios.crearAdmin');
+
     // Control de Ventas de clientes (Agregados al AdminController)
     Route::get('/ventas', [AdminController::class, 'ventas'])->name('admin.ventas.index');
     Route::put('/ventas/{id}/estado', [AdminController::class, 'actualizarEstadoVenta'])->name('admin.ventas.update');
@@ -138,6 +146,9 @@ Route::get('/usuario/compra', function () {
     // Gestión de Roles (RolController)
     Route::resource('roles', RolController::class)->except(['show', 'edit', 'update']);
 
+
+    Route::get('/admin/consultas-recibidas', [AdminController::class, 'consultasIndex'])->name('admin.consultas.index');
+    Route::post('/contacto-update', [AdminController::class, 'updateContactoSimulado'])->name('admin.contacto.update');
 });
 
 
@@ -159,3 +170,7 @@ Route::post('/perfil', [UsuarioController::class, 'actualizarPerfil'])
 Route::get('/colecciones', [ProductoController::class, 'mostrarColecciones'])->name('colecciones');
 Route::get('/categoria/{categoria}', [ProductoController::class, 'mostrarCategoria'])->name('categoria.show');
 Route::get('/catalogo-completo', [ProductoController::class, 'mostrarTodos'])->name('catalogo.todos');
+
+// 1. Ruta pública para procesar el formulario de contacto
+Route::post('/enviar-consulta', [AdminController::class, 'guardarConsultaSimulada'])->name('consultas.store');
+

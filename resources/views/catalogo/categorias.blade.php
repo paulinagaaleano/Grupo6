@@ -13,9 +13,9 @@
             {{-- BOTÓN EXCLUSIVO PARA EL ADMIN: Añadir Producto --}}
             @auth
                 @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
-                    <a href="{{ route('productos.create') }}" class="btn btn-success px-4 py-2 shadow-sm rounded-0 fw-bold">
-                        <i class="bi bi-plus-lg me-2"></i> AÑADIR NUEVO PRODUCTO
-                    </a>
+                    <a href="{{ route('productos.create') }}" class="btn btn-dark btn-sm rounded-0 px-3 py-2 fw-bold text-uppercase shadow-sm" style="background-color: #181114; border-color: #181114; font-size: 0.75rem; letter-spacing: 0.5px;">
+                            <i class="bi bi-plus-lg me-1"></i> Nuevo Producto
+                        </a>
                 @endif
             @endauth
         </div>

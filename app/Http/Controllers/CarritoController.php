@@ -112,18 +112,28 @@ public function misCompras()
 
     if ($rol === 'admin') {
         // El Admin ve ABSOLUTAMENTE TODAS las compras confirmadas del sistema
-        // Usamos with('usuario') para saber quién es el cliente en la vista
-        $ventas = VentaCabecera::with(['detalles.producto', 'usuario'])
-            ->where('estado', 'confirmado')
-            ->orderBy('fecha_venta', 'desc')
-            ->get();
+        // Forzamos a que traiga el producto de los detalles así tenga baja lógica
+        $ventas = VentaCabecera::with([
+            'detalles.producto' => function($query) {
+                $query->withTrashed();
+            }, 
+            'usuario'
+        ])
+        ->where('estado', 'confirmado')
+        ->orderBy('fecha_venta', 'desc')
+        ->get();
     } else {
         // El cliente común SOLO ve sus propias compras
-        $ventas = VentaCabecera::with('detalles.producto')
-            ->where('user_id', auth()->id())
-            ->where('estado', 'confirmado')
-            ->orderBy('fecha_venta', 'desc')
-            ->get();
+        // También incluimos los productos dados de baja para su historial
+        $ventas = VentaCabecera::with([
+            'detalles.producto' => function($query) {
+                $query->withTrashed();
+            }
+        ])
+        ->where('user_id', auth()->id())
+        ->where('estado', 'confirmado')
+        ->orderBy('fecha_venta', 'desc')
+        ->get();
     }
 
     return view('backend.usuarios.mis_compras', compact('ventas'));
@@ -136,5 +146,65 @@ public function misCompras()
      $carrito->update(['total' => $total]);
  }
 
+ /**
+ * Incrementa o decrementa la cantidad de un ítem en el carrito de forma segura.
+ */
+public function actualizarCantidad(Request $request, $id)
+{
+    $request->validate([
+        'operacion' => 'required|in:sumar,restar'
+    ]);
+
+    $carrito = $this->obtenerCarrito();
+    
+    // Buscamos el ítem asegurando que pertenezca al carrito del usuario activo
+    $item = $carrito->detalles()->findOrFail($id);
+    $producto = $item->producto;
+
+    if ($request->operacion === 'sumar') {
+        // Antes de sumar, verificamos que el depósito tenga stock suficiente disponible
+        if ($producto->stock < ($item->cantidad + 1)) {
+            return back()->with('error', 'Lo sentimos, no hay más stock disponible de este producto.');
+        }
+        $item->cantidad += 1;
+    } else {
+        // Si intenta bajar de 1, lo frenamos (para eliminar tiene el otro botón dedicado)
+        if ($item->cantidad <= 1) {
+            return back()->with('error', 'La cantidad mínima es 1. Si no deseas el producto, presiona Eliminar.');
+        }
+        $item->cantidad -= 1;
+    }
+
+    // Recalculamos los montos del ítem individual
+    $item->subtotal = $item->cantidad * $item->precio_unitario;
+    $item->save();
+
+    // Recalculamos el total de la cabecera completa de la compra
+    $this->recalcularTotal($carrito);
+
+    return back();
+}
+
+/**
+ * Genera la vista de la factura lista para imprimirse o guardarse en PDF.
+ */
+public function emitirFactura($id)
+{
+    // 🌟 El truco mágico: 'detalles.producto' => fn($q) => $q->withTrashed()
+    // Esto le dice a Laravel: "Traeme el producto de la compra así tenga baja lógica"
+    $compra = VentaCabecera::with([
+        'detalles.producto' => function($query) {
+            $query->withTrashed();
+        }, 
+        'usuario'
+    ])->findOrFail($id);
+
+    // Seguridad: Validamos usando tu columna real 'user_id'
+    if (auth()->user()->rol_id != 1 && $compra->user_id !== auth()->id()) {
+        abort(403, 'No tienes permisos para ver esta factura.');
+    }
+
+    return view('backend.usuarios.factura', compact('compra'));
+}
  
 }

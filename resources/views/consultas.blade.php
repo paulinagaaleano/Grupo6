@@ -25,10 +25,11 @@
                     <textarea class="form-control" rows="3" required minlength="10"></textarea>
                 </div>
 
-                {{-- El botón ahora es tipo submit para activar la validación --}}
-                <button type="submit" class="btn btn-dark btn-sm w-10 rounded-0"> 
-                    ENVIAR MENSAJE 
-                </button>
+                <form action="{{ route('consultas.store') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-dark">Enviar Mensaje</button>
+                </form>
+
             </form>
         </div>
     </div>
