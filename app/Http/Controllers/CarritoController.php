@@ -105,30 +105,43 @@ class CarritoController extends Controller
                  ->with('success', '¡Compra realizada con éxito!');
 }
 
-public function misCompras()
+public function misCompras(Request $request)
 {
-    // Limpiamos y verificamos el rol del usuario logueado
     $rol = strtolower(trim(auth()->user()->rol->nombre));
 
     if ($rol === 'admin') {
-        // El Admin ve ABSOLUTAMENTE TODAS las compras confirmadas del sistema
-        // Forzamos a que traiga el producto de los detalles así tenga baja lógica
-        $ventas = VentaCabecera::with([
-            'detalles.producto' => function($query) {
-                $query->withTrashed();
-            }, 
+        // 1. Iniciamos la consulta base con sus relaciones necesarias
+        $query = VentaCabecera::with([
+            'detalles.producto' => function($q) { $q->withTrashed(); }, 
             'usuario'
-        ])
-        ->where('estado', 'confirmado')
-        ->orderBy('fecha_venta', 'desc')
-        ->get();
+        ])->where('estado', 'confirmado');
+
+        // 2. Filtro opcional por Cliente (Busca por nombre o email en la tabla relacionada)
+        if ($request->filled('buscar_cliente')) {
+            $buscar = $request->buscar_cliente;
+            $query->whereHas('usuario', function($q) use ($buscar) {
+                $q->where('nombre', 'like', "%{$buscar}%")
+                  ->orWhere('email', 'like', "%{$buscar}%");
+            });
+        }
+
+        // 3. Filtro opcional por Fecha Desde
+        if ($request->filled('fecha_desde')) {
+            $query->whereDate('fecha_venta', '>=', $request->fecha_desde);
+        }
+
+        // 4. Filtro opcional por Fecha Hasta
+        if ($request->filled('fecha_hasta')) {
+            $query->whereDate('fecha_venta', '<=', $request->fecha_hasta);
+        }
+
+        // 5. Ordenamos y obtenemos los resultados
+        $ventas = $query->orderBy('fecha_venta', 'desc')->get();
+
     } else {
-        // El cliente común SOLO ve sus propias compras
-        // También incluimos los productos dados de baja para su historial
+        // El cliente común sigue viendo solo sus compras de forma regular
         $ventas = VentaCabecera::with([
-            'detalles.producto' => function($query) {
-                $query->withTrashed();
-            }
+            'detalles.producto' => function($q) { $q->withTrashed(); }
         ])
         ->where('user_id', auth()->id())
         ->where('estado', 'confirmado')
@@ -138,6 +151,7 @@ public function misCompras()
 
     return view('backend.usuarios.mis_compras', compact('ventas'));
 }
+
 
   private function recalcularTotal(VentaCabecera $carrito)
  {

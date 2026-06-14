@@ -9,7 +9,52 @@
             Mis Compras
         @endif
     </h2>
+    
+    {{-- 🔍 PANEL DE FILTROS EXCLUSIVO PARA EL ADMINISTRADOR --}}
+    @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
+        <div class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
+            <div class="card-body p-3">
+                <form method="GET" action="{{ route('backend.usuarios.mis_compras') }}" class="row g-2 align-items-end">
+                    
+                    {{-- Filtro por texto --}}
+                    <div class="col-12 col-md-4">
+                        <label class="form-label small fw-bold text-muted mb-1">Buscar Cliente</label>
+                        <input type="text" name="buscar_cliente" class="form-control form-control-sm rounded-0" 
+                               placeholder="Nombre o email..." value="{{ request('buscar_cliente') }}">
+                    </div>
 
+                    {{-- Fecha Desde --}}
+                    <div class="col-6 col-md-2">
+                        <label class="form-label small fw-bold text-muted mb-1">Desde</label>
+                        <input type="date" name="fecha_desde" class="form-control form-control-sm rounded-0" 
+                               value="{{ request('fecha_desde') }}">
+                    </div>
+
+                    {{-- Fecha Hasta --}}
+                    <div class="col-6 col-md-2">
+                        <label class="form-label small fw-bold text-muted mb-1">Hasta</label>
+                        <input type="date" name="fecha_hasta" class="form-control form-control-sm rounded-0" 
+                               value="{{ request('fecha_hasta') }}">
+                    </div>
+
+                    {{-- Botonera de control --}}
+                    <div class="col-12 col-md-4 d-flex gap-2">
+                        <button type="submit" class="btn btn-sm btn-dark rounded-0 fw-bold text-uppercase flex-grow-1" style="background-color: #181114; font-size: 0.7rem; letter-spacing: 0.5px; height: 31px;">
+                            <i class="bi bi-filter me-1"></i> Filtrar
+                        </button>
+                        
+                        @if(request()->hasAny(['buscar_cliente', 'fecha_desde', 'fecha_hasta']))
+                            <a href="{{ route('backend.usuarios.mis_compras') }}" class="btn btn-sm btn-outline-secondary rounded-0 text-uppercase d-flex align-items-center justify-content-center" style="font-size: 0.7rem; letter-spacing: 0.5px; height: 31px;">
+                                Limpiar
+                            </a>
+                        @endif
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    @endif
+    
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
