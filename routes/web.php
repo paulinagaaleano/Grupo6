@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ConsultaController;
+
 /*
 |--------------------------------------------------------------------------
 | Rutas públicas
@@ -75,14 +77,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 */
 
 
-
-Route::get('/cliente/dashboard', [ClienteController::class, 'index'])
-    ->name('cliente.dashboard');
-
-Route::get('/carrito', [ClienteController::class, 'index'])
-    ->name('carrito');
-
-
 Route::middleware(['auth'])->group(function () {
 
 //Route::middleware(['auth', 'rol:cliente'])->group(function () {
@@ -147,9 +141,10 @@ Route::get('/usuario/compra', function () {
     Route::resource('roles', RolController::class)->except(['show', 'edit', 'update']);
 
 
-    Route::get('/admin/consultas-recibidas', [AdminController::class, 'consultasIndex'])->name('admin.consultas.index');
-    Route::post('/contacto-update', [AdminController::class, 'updateContactoSimulado'])->name('admin.contacto.update');
-});
+
+    Route::get('/admin/consultas', [ConsultaController::class, 'index'])->name('admin.consultas.index');
+    Route::patch('/admin/consultas/{id}/leer', [ConsultaController::class, 'marcarLeida'])->name('admin.consultas.leer');
+    });
 
 
 Route::get('/mis_compras', [CarritoController::class, 'misCompras'])
@@ -171,6 +166,5 @@ Route::get('/colecciones', [ProductoController::class, 'mostrarColecciones'])->n
 Route::get('/categoria/{categoria}', [ProductoController::class, 'mostrarCategoria'])->name('categoria.show');
 Route::get('/catalogo-completo', [ProductoController::class, 'mostrarTodos'])->name('catalogo.todos');
 
-// 1. Ruta pública para procesar el formulario de contacto
-Route::post('/enviar-consulta', [AdminController::class, 'guardarConsultaSimulada'])->name('consultas.store');
-
+// Ruta pública para procesar el formulario de contacto/consultas
+Route::post('/consultas/enviar', [ConsultaController::class, 'enviar'])->name('consultas.enviar');
