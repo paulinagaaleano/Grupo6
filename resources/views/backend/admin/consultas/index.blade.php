@@ -3,7 +3,7 @@
 @section('contenido')
 <div class="container py-5" style="max-width: 900px;">
     <h2 class="mb-4" style="font-family: 'Playfair Display'; font-weight: 700;">
-        📬 Bandeja de Consultas y Mensajes
+        Bandeja de Consultas y Mensajes
     </h2>
 
     @if(session('success'))

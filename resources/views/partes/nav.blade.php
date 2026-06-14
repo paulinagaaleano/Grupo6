@@ -56,23 +56,33 @@
         </li>
 
        {{-- 1. Primero le preguntamos a Laravel si hay una sesión iniciada --}}
-        @auth
-            {{-- 2. Si hay sesión, recién ahí evaluamos si es Administrador o Cliente --}}
-            @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
-                <li class="nav-item">
-                    <a href="{{ route('admin.consultas.index') }}" class="nav-link px-2">Consultas</a>
-                </li>
-            @else
-                <li class="nav-item">
-                    <a href="{{ url('/consultas') }}" class="nav-link px-2">Consultas</a>
-                </li>
-            @endif
-        @else
-            {{-- 3. Si NO hay nadie logueado (como cuando recién cerrás sesión), muestra la ruta común de forma segura --}}
-            <li class="nav-item">
-                <a href="{{ url('/consultas') }}" class="nav-link px-2">Consultas</a>
-            </li>
-        @endauth
+       @auth
+    @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
+        {{-- Si es ADMINISTRADOR: Ve la bandeja de entrada con la tabla de mensajes de la BD --}}
+        <li class="nav-item">
+            <a class="nav-link px-2"
+               href="{{ route('admin.consultas.index') }}">
+                Consultas
+            </a>
+        </li>
+    @else
+        {{-- Si es CLIENTE LOGUEADO: Va de forma segura al formulario de contacto público --}}
+        <li class="nav-item">
+            <a class="nav-link px-2"
+               href="{{ url('/consulta') }}">
+                Consultas
+            </a>
+        </li>
+    @endif
+@else
+    {{-- Si es VISITANTE ANÓNIMO (No logueado): También va al formulario de contacto público --}}
+    <li class="nav-item">
+        <a class="nav-link px-2"
+           href="{{ url('/consulta') }}">
+            Consultas
+        </a>
+    </li>
+@endauth
 
         @guest
             <li class="nav-item">

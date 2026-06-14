@@ -16,7 +16,8 @@ return new class extends Migration
         $table->string('nombre');
         $table->string('email');
         $table->text('mensaje');
-        // 🌟 El truco: por defecto arranca en false (No leída)
+        $table->string('asunto')->nullable();
+        // El truco: por defecto arranca en false (No leída)
         $table->boolean('leida')->default(false); 
         $table->timestamps();
     });

@@ -16,14 +16,26 @@
                     <li><a href="{{ url('/catalogo') }}" class="text-decoration-none text-muted" style="font-size: 0.95rem;">Catálogo</a></li>
                     
                     @auth
-                        @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
-                            <li><a href="{{ route('admin.consultas.index') }}" class="text-decoration-none text-muted" style="font-size: 0.95rem;">Consultas</a></li>
-                        @else
-                            <li><a href="{{ url('/consultas') }}" class="text-decoration-none text-muted" style="font-size: 0.95rem;">Consultas</a></li>
-                        @endif
+                    @if(strtolower(trim(auth()->user()->rol->nombre)) === 'admin')
+                        <li>
+                            <a href="{{ route('admin.consultas.index') }}" class="text-decoration-none text-muted" style="font-size: 0.95rem;">
+                                Consultas
+                            </a>
+                        </li>
                     @else
-                        <li><a href="{{ url('/consultas') }}" class="text-decoration-none text-muted" style="font-size: 0.95rem;">Consultas</a></li>
-                    @endauth
+                        <li>
+                            <a href="{{ url('/consulta') }}" class="text-decoration-none text-muted" style="font-size: 0.95rem;">
+                                Consultas
+                            </a>
+                        </li>
+                    @endif
+                @else
+                    <li>
+                        <a href="{{ url('/consulta') }}" class="text-decoration-none text-muted" style="font-size: 0.95rem;">
+                            Consultas
+                        </a>
+                    </li>
+                @endauth
                 </ul>
             </div>
 

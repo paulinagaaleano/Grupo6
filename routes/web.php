@@ -39,6 +39,11 @@ Route::get('/construccion', function () {
     return view('construccion');
 })->name('construccion');
 
+//Dejamos la URL /contacto que apunte a tu vista de formulario
+Route::get('/consulta', function () {
+    return view('consultas'); // 👈 Si tu archivo se llama 'consultas', cambiá 'contacto' por 'consultas'
+})->name('consulta');
+
 // Procesamiento del formulario de contacto hacia la Base de Datos
 Route::post('/consultas/enviar', [ConsultaController::class, 'enviar'])->name('consultas.enviar');
 
@@ -50,7 +55,7 @@ Route::post('/consultas/enviar', [ConsultaController::class, 'enviar'])->name('c
 */
 
 Route::get('/catalogo', [ProductoController::class, 'mostrarColecciones'])->name('colecciones');
-Route::get('/catalogo/todos', [ProductoController::class, 'mostrarTodos'])->name('catalogoCompleto');
+Route::get('/catalogo/todos', [ProductoController::class, 'mostrarTodos'])->name('catalogo.todos');
 Route::get('/catalogo/{categoria}', [ProductoController::class, 'mostrarCategoria'])->name('categoria.show');
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consulta;
 use Illuminate\Http\Request;
 
 class ConsultaController extends Controller
@@ -36,7 +37,7 @@ class ConsultaController extends Controller
                              ->orderBy('created_at', 'desc')
                              ->get();
 
-        return view('backend.admin.consultas', compact('consultas'));
+        return view('backend.admin.consultas.index', compact('consultas'));
     }
 
     /**
