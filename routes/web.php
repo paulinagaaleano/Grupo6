@@ -11,11 +11,10 @@ use App\Http\Controllers\ConsultaController;
 
 /*
 |--------------------------------------------------------------------------
-| Rutas públicas
+| Rutas Públicas (Estáticas y de Información)
 |--------------------------------------------------------------------------
 */
 
-// Inicio
 Route::get('/', function () {
     return view('pagina-principal');
 })->name('inicio');
@@ -28,10 +27,6 @@ Route::get('/comercializacion', function () {
     return view('comercializacion');
 })->name('comercializacion');
 
-Route::get('/consultas', function () {
-    return view('consultas');
-})->name('consultas');
-
 Route::get('/contacto', function () {
     return view('contacto');
 })->name('contacto');
@@ -40,25 +35,28 @@ Route::get('/terminos', function () {
     return view('terminos');
 })->name('terminos');
 
-/*Route::get('/coleccion', function () {
-    return view('coleccion');
-});*/
-
-Route::get('/coleccion', [ProductoController::class, 'mostrarColecciones']);
-
-Route::get('/catalogo', [ProductoController::class, 'mostrarColecciones']);
-
-Route::get('/catalogo/todos', [ProductoController::class, 'mostrarTodos'])->name('catalogoCompleto');;
-
-Route::get('/catalogo/{categoria}', [ProductoController::class, 'mostrarCategoria']);
-
 Route::get('/construccion', function () {
     return view('construccion');
 })->name('construccion');
 
+// Procesamiento del formulario de contacto hacia la Base de Datos
+Route::post('/consultas/enviar', [ConsultaController::class, 'enviar'])->name('consultas.enviar');
+
+
 /*
 |--------------------------------------------------------------------------
-| Registro, Login y Logout
+| Rutas Públicas del Catálogo
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/catalogo', [ProductoController::class, 'mostrarColecciones'])->name('colecciones');
+Route::get('/catalogo/todos', [ProductoController::class, 'mostrarTodos'])->name('catalogoCompleto');
+Route::get('/catalogo/{categoria}', [ProductoController::class, 'mostrarCategoria'])->name('categoria.show');
+
+
+/*
+|--------------------------------------------------------------------------
+| Registro, Login y Logout (Autenticación)
 |--------------------------------------------------------------------------
 */
 
@@ -70,54 +68,49 @@ Route::post('/registro', [AuthController::class, 'registrar'])->name('registro.g
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
 /*
 |--------------------------------------------------------------------------
-| Rutas protegidas
+| Rutas Protegidas (Requieren inicio de sesión)
 |--------------------------------------------------------------------------
 */
-
 
 Route::middleware(['auth'])->group(function () {
 
-//Route::middleware(['auth', 'rol:cliente'])->group(function () {
- // Mostrar el carrito
- Route::get('/carrito', [CarritoController::class, 'index'])->name('cliente.carrito');
- // Agregar un producto
- Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])
- ->name('carrito.agregar');
- // Eliminar un producto
- Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])
- ->name('carrito.eliminar');
- // Confirmar la compra
- Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
+    // Panel de Inicio del Cliente
+    Route::get('/cliente/dashboard', [ClienteController::class, 'index'])->name('cliente.dashboard');
 
-Route::patch('/carrito/actualizar-cantidad/{id}', [CarritoController::class, 'actualizarCantidad'])->name('carrito.actualizarCantidad');
+    // Gestión Interna del Carrito de Compras
+    Route::get('/carrito', [CarritoController::class, 'index'])->name('cliente.carrito');
+    Route::post('/carrito/agregar', [CarritoController::class, 'agregar'])->name('carrito.agregar');
+    Route::patch('/carrito/actualizar-cantidad/{id}', [CarritoController::class, 'actualizarCantidad'])->name('carrito.actualizarCantidad');
+    Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+    Route::delete('/carrito/vaciar', [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
+    
+    // Flujo de Confirmación de Compra
+    Route::post('/carrito/confirmar', [CarritoController::class, 'confirmar'])->name('carrito.confirmar');
+    Route::get('/usuario/compra', function () {
+        return view('backend.usuarios.compra');
+    })->name('compra');
 
-Route::get('/usuario/compra', function () {
-    return view('backend.usuarios.compra');
-})->name('compra');
+    // Historial de compras del usuario / Ventas generales
+    Route::get('/mis_compras', [CarritoController::class, 'misCompras'])->name('backend.usuarios.mis_compras');
+    
+    // Emisión interactiva de Facturas en PDF
+    Route::get('/compra/factura/{id}', [CarritoController::class, 'emitirFactura'])->name('compras.factura');
 
- // Vista de compra confirmada (protegida: redirige si no hay sesión)
- Route::get('/compra-confirmada', function () {
- if (!session('total')) {
- return redirect()->route('cliente.dashboard');
- }
- return view('backend.usuarios.compra');
- })->name('compra.confirmada');
+    // Configuración y actualización del Perfil (Clave incluida)
+    Route::get('/perfil', [UsuarioController::class, 'perfil'])->name('perfil');
+    Route::put('/perfil/actualizar', [UsuarioController::class, 'actualizarPerfil'])->name('perfil.actualizar');
 
- 
- Route::get('/compra/factura/{id}', [CarritoController::class, 'emitirFactura'])->name('compras.factura');
-
-
- /*
-|--------------------------------------------------------------------------
-| Rutas admin
-|--------------------------------------------------------------------------
-*/
-
-    // Panel y CRUD de Usuarios (AdminController)
+    /*
+    |--------------------------------------------------------------------------
+    | Panel de Control Exclusivo del Administrador
+    |--------------------------------------------------------------------------
+    */
+    
+    // Dashboard Principal y CRUD de Usuarios
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    //Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/usuarios/create', [AdminController::class, 'create'])->name('admin.create');
     Route::post('/usuarios', [AdminController::class, 'store'])->name('admin.store');
     Route::get('/usuarios/{id}', [AdminController::class, 'show'])->name('admin.show');
@@ -125,46 +118,15 @@ Route::get('/usuario/compra', function () {
     Route::put('/usuarios/{id}', [AdminController::class, 'update'])->name('admin.update');
     Route::delete('/usuarios/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
-  
     Route::patch('/usuarios/{id}/cambiar-rol', [AdminController::class, 'cambiarRol'])->name('admin.usuarios.cambiarRol');
     Route::post('/usuarios/crear-admin', [AdminController::class, 'crearAdmin'])->name('admin.usuarios.crearAdmin');
 
-    // Control de Ventas de clientes (Agregados al AdminController)
-    Route::get('/ventas', [AdminController::class, 'ventas'])->name('admin.ventas.index');
-    Route::put('/ventas/{id}/estado', [AdminController::class, 'actualizarEstadoVenta'])->name('admin.ventas.update');
-
-    // Manipulación de Catálogo de Productos (ProductoController - Recursos)
-    // Esto mapea automáticamente index, create, store, edit, update, destroy para el admin
-    Route::resource('productos', ProductoController::class);
-    
-    // Gestión de Roles (RolController)
-    Route::resource('roles', RolController::class)->except(['show', 'edit', 'update']);
-
-
-
+    // Gestión permanente de Consultas de la Base de Datos
     Route::get('/admin/consultas', [ConsultaController::class, 'index'])->name('admin.consultas.index');
     Route::patch('/admin/consultas/{id}/leer', [ConsultaController::class, 'marcarLeida'])->name('admin.consultas.leer');
-    });
 
+    // Recursos automáticos de Catálogo y Roles
+    Route::resource('productos', ProductoController::class);
+    Route::resource('roles', RolController::class)->except(['show', 'edit', 'update']);
 
-Route::get('/mis_compras', [CarritoController::class, 'misCompras'])
-    ->middleware('auth')
-    ->name('backend.usuarios.mis_compras');
-
-Route::get('/perfil', [UsuarioController::class, 'perfil'])
-    ->middleware('auth')
-    ->name('perfil');
-
-Route::post('/perfil', [UsuarioController::class, 'actualizarPerfil'])
-    ->middleware('auth')
-    ->name('perfil.actualizar');
-
-
-
-// Rutas Públicas de Catálogo (Para los clientes - Fuera del grupo de admin)
-Route::get('/colecciones', [ProductoController::class, 'mostrarColecciones'])->name('colecciones');
-Route::get('/categoria/{categoria}', [ProductoController::class, 'mostrarCategoria'])->name('categoria.show');
-Route::get('/catalogo-completo', [ProductoController::class, 'mostrarTodos'])->name('catalogo.todos');
-
-// Ruta pública para procesar el formulario de contacto/consultas
-Route::post('/consultas/enviar', [ConsultaController::class, 'enviar'])->name('consultas.enviar');
+});
