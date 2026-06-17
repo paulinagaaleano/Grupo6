@@ -48,7 +48,6 @@
         </div>
         <div class="col-6 text-end">
             <h6 class="text-muted text-uppercase small fw-bold">Detalle de Pago:</h6>
-            <p class="mb-1"><strong>Método:</strong> Tarjeta de Crédito/Débito</p>
             <p class="mb-0"><strong>Estado:</strong> <span class="badge bg-success text-uppercase">Abonado</span></p>
         </div>
     </div>

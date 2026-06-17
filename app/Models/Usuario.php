@@ -36,4 +36,10 @@ class Usuario extends Authenticatable
     {
         return $this->belongsTo(Rol::class, 'rol_id');
     }
+
+    public function ventas()
+{
+    // Le decimos que se conecta con VentaCabecera usando la FK 'user_id'
+    return $this->hasMany(\App\Models\VentaCabecera::class, 'user_id');
+}
 }

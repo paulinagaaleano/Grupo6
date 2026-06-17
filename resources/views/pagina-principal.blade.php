@@ -26,7 +26,7 @@
     <div class="container">
         <h1 style="font-family: 'Playfair Display'; font-size: 3rem;"> Productos exclusivos "Rare Beauty"</h1>
         
-        <a href="{{ url('/coleccion') }}" class="btn btn-dark btn-sm w-10 rounded-0"> Explorar Colecciones</a>
+        <a href="{{ url('/catalogo') }}" class="btn btn-dark btn-sm w-10 rounded-0"> Explorar Colecciones</a>
     </div>
 </header>
 

@@ -37,7 +37,7 @@ class UsuarioController extends Controller
         
         $request->validate([
            'nombre' => 'required|string|max:255',
-           'email' => 'required|email|unique:usuario,email',
+           'email' => 'required|email|unique:usuarios,email',
            'password' => 'required|min:6|confirmed', // Mínimo 6 caracteres según tu PDF
            'rol_id' => 'required|int', // Atributo 'rol' de tipo texto exigido por la cátedra
         ]);

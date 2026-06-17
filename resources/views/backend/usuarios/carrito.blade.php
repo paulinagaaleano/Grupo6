@@ -28,7 +28,7 @@
                             <h4 class="fw-normal mb-3" style="color: #6c5b5b;">Tu carrito está vacío</h4>
                             <p class="text-muted small mb-4">¡Aún no agregaste ningún maquillaje a tu pedido!</p>
                             
-                            <a href="{{ route('catalogoCompleto') }}" class="btn rounded-pill px-4 py-2 text-white text-uppercase mb-3" 
+                            <a href="{{ route('catalogo.todos') }}" class="btn rounded-pill px-4 py-2 text-white text-uppercase mb-3" 
                                style="background-color: #f1b3b3; border: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(241, 179, 179, 0.3); transition: all 0.3s;">
                                 Explorar Productos
                             </a>
@@ -129,7 +129,7 @@
                         <div class="d-flex justify-content-between align-items-center mt-4 pt-3" style="border-top: 1px solid #f9eae6;">
                             
                             {{-- Botón Seguir Comprando --}}
-                            <a href="{{ route('catalogoCompleto') }}" class="btn rounded-pill px-4 py-2 text-uppercase" 
+                            <a href="{{ route('catalogo.todos') }}" class="btn rounded-pill px-4 py-2 text-uppercase" 
                                style="border: 1px solid #f1b3b3; color: #bc7d75; background-color: transparent; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; transition: all 0.3s; text-decoration: none;">
                                 ← Seguir comprando
                             </a> 

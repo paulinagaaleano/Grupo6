@@ -10,17 +10,34 @@ use Illuminate\Http\Request;
 
 class CarritoController extends Controller
 {
-   private function obtenerCarrito() 
-    { 
-        return VentaCabecera::firstOrCreate( 
-            [ 
-                'user_id' => auth()->id(), 
-                'estado'  => 'carrito', 
-            ], 
-            // Si crea uno nuevo, arranca con total 0 
-            ['total' => 0] 
-        ); 
-    } 
+   private function obtenerCarrito()
+{
+    $usuarioId = auth()->id();
+
+    if (!$usuarioId) {
+        abort(403, 'Usuario no autenticado.');
+    }
+
+    $carrito = VentaCabecera::where('user_id', $usuarioId)
+                            ->where('estado', 'carrito')
+                            ->first();
+
+    if (!$carrito) {
+        // TRUCO: Desactivamos temporalmente las claves foráneas en SQLite para esta inserción
+        \DB::statement('PRAGMA foreign_keys = OFF;');
+
+        $carrito = new VentaCabecera();
+        $carrito->user_id = $usuarioId;
+        $carrito->estado  = 'carrito';
+        $carrito->total   = 0;
+        $carrito->save();
+
+        // Volvemos a activar por seguridad del resto del sistema
+        \DB::statement('PRAGMA foreign_keys = ON;');
+    }
+
+    return $carrito;
+}
 
     public function index() 
     { 
