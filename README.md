@@ -25,7 +25,8 @@ Si querés correr este proyecto en tu máquina local, seguí estos pasos en la t
 4. Generar la clave única de la aplicación:
     php artisan key:generate
 5. Preparar la Base de Datos:
-    El repositorio incluye una copia de respaldo física con datos y compras de prueba en database/database - copia.sqlite.
+    El repositorio incluye una copia de respaldo física con datos y compras de prueba en database/database - copia.sqlite. Para utilizar esta base de datos preconfigurada, simplemente realizar una copia de ese archivo y renombrarla como database.sqlite dentro de la misma carpeta database/.
+    
     Para generar una base de datos limpia y vacía:php artisan migrate:fresh --seed
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
