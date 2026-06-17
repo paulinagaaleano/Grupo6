@@ -1,3 +1,34 @@
+# Aura Beauty - Sistema de E-Commerce (Grupo 6)
+
+Proyecto desarrollado en Laravel para la materia Taller de Programacion I.
+
+## Requisitos previos
+* PHP 8.4 o superior
+* Laravel Herd (o entorno local compatible)
+* Composer instalado
+
+## Instrucciones de instalación
+
+Si querés correr este proyecto en tu máquina local, seguí estos pasos en la terminal:
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/TU_USUARIO/TU_REPOSITORIO.git)
+   cd Grupo6
+2. Instalar las dependencias de PHP con Composer:
+   composer install
+3. Configurar el archivo de entorno:
+    Duplicar o renombrar el archivo .env.example como .env en la raíz del proyecto.
+    cp .env.example .env
+
+    Verificar que la configuración de la base de datos esté seteada para usar SQLite:
+    DB_CONNECTION=sqlite
+4. Generar la clave única de la aplicación:
+    php artisan key:generate
+5. Preparar la Base de Datos:
+    El repositorio incluye una copia de respaldo física con datos y compras de prueba en database/database - copia.sqlite.
+    Para generar una base de datos limpia y vacía:php artisan migrate:fresh --seed
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
