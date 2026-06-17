@@ -13,8 +13,7 @@ Si querés correr este proyecto en tu máquina local, seguí estos pasos en la t
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/TU_USUARIO/TU_REPOSITORIO.git)
-   cd Grupo6
+   git clone https://github.com/paulinagaaleano/Grupo6.git
 2. Instalar las dependencias de PHP con Composer:
    composer install
 3. Configurar el archivo de entorno:
